@@ -19,5 +19,5 @@ Mise en place de rôles
     - Js en suivant des templates (pour le front)
     - Base de données (incertain pour l'instant)
 - __Mise en place de l'environnement de développement__
-    - not done
+    - Répartition des tâches
 - __Objectifs et cible utilisateur définie__
