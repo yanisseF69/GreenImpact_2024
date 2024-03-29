@@ -1,23 +1,9 @@
 # M1if10 - Groupe 16
-## Jalon 1 -  Lancement du projet
-- Création du groupe
-- outils de communications
-- Choix du sujet
-- Création du dépôt
-    - Page wiki
-    - Enseignant ajouté
+## Projet d'application web de calcul d'emprunte carbone
+### Déscription
+Ce projet consiste à réaliser une application web permettant de calculer l'empreinte carbone d'un utilisateur. Via un questionnaire en ligne, l'utilisateur pourra renseigner ses habitudes de vie et l'application lui donnera un score d'empreinte carbone. Suite aux calculs, différentes statistiques seront affichées à l'utilisateur pour lui permettre de mieux comprendre l'impact de ses habitudes sur l'environnement. L'application permettra également de comparer son score avec celui d'un francais moyen.
 
-## Jalon 2 - Organisation et conception
-- __organisation du groupe__  
-Mise en place de rôles
-- __Phase de conception oriantée objet && partie UX/UI__
-    - Diagramme de classe (fait pandant la réunion)
-    - Diagrame User Case
-    - User Stories
-- __Choix technologies__
-    - Django (framework python)
-    - Js en suivant des templates (pour le front)
-    - Base de données (incertain pour l'instant)
-- __Mise en place de l'environnement de développement__
-    - Répartition des tâches
-- __Objectifs et cible utilisateur définie__
+### Initialisation du projet
+Pour initialiser le projet, vous pouvez le clone avec cette adresse: https://forge.univ-lyon1.fr/mif10-groupe-16/m1if10-groupe-16  
+Le serveur fonctionne grâce au framework Django. Il vous faut un environnement Python avec la version 3.11. Vous pouvez ensuite acquerir les dépendances du projet avec la commande `pip install -r requirements.txt`. 
+
