@@ -19,7 +19,7 @@ sonarqube-check:
     - ls
     - ls sonar
     - cat sonar/sonar-project.properties
-    - sonar-scanner -Dsonar.project.settings=sonar/sonar-project.properties
+    - sonar-scanner -Dsonar.project.settings=sonar/sonar-project.properties -X
   allow_failure: true
   only:
     - merge_requests
