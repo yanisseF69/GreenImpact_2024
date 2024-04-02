@@ -7,3 +7,4 @@ Ce projet consiste à réaliser une application web permettant de calculer l'emp
 Pour initialiser le projet, vous pouvez le clone avec cette adresse: https://forge.univ-lyon1.fr/mif10-groupe-16/m1if10-groupe-16  
 Le serveur fonctionne grâce au framework Django. Il vous faut un environnement Python avec la version 3.11. Vous pouvez ensuite acquerir les dépendances du projet avec la commande `pip install -r requirements.txt`. 
 
+### Sonar
