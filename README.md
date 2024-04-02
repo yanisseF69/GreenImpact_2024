@@ -8,3 +8,11 @@ Pour initialiser le projet, vous pouvez le clone avec cette adresse: https://for
 Le serveur fonctionne grâce au framework Django. Il vous faut un environnement Python avec la version 3.11. Vous pouvez ensuite acquerir les dépendances du projet avec la commande `pip install -r requirements.txt`. 
 
 ### Sonar
+Sonar est un outil de qualité de code. Pour vérifier que notre projet est conforme aux normes de qualité, nous utilisons le serveur Sonar de la fac.
+ <!-- Pour lancer un test manuellement vous pouvez lancer la commande :
+```shell
+./sonar/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner  \
+     -Dsonar.projectKey=mif10-groupe-16_m1if10-groupe-16_AY6KmI2au4zgX3p-IR_e   \
+     -Dsonar.sources=. -Dsonar.host.url=https://sonar.info.univ-lyon1.fr   \
+     -Dsonar.token=sqp_2b80637d2708c6d6bfad01b2dedf0bdfd96c77d3
+``` -->
