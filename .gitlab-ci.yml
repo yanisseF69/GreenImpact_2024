@@ -51,9 +51,9 @@ default:
     paths:
       - ~/.cache/pip/
   before_script:
+    - apt -y install apt-utils software-properties-common
     - add-apt-repository ppa:deadsnakes/ppa -y
     - apt -y update
-    - apt -y install apt-utils
     - apt -y install net-tools python3.10 python3-pip postgresql
     - apt -y upgrade
     - pip3 install -r requirements.txt
