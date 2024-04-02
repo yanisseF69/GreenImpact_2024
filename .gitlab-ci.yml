@@ -15,6 +15,9 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script: 
+    - echo Here
+    - ls
+    - ls sonar
     - cat sonar/sonar-project.properties
     - sonar-scanner -Dsonar.project.settings=sonar/sonar-project.properties
   allow_failure: true
