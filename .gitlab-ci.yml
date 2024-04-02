@@ -57,6 +57,8 @@ default:
     - apt -y update
     - apt -y install net-tools python3.10 python3-pip postgresql
     - apt -y upgrade
+    - python3 --version
+    - pip3 --version
     - pip3 install -r requirements.txt
 
 
