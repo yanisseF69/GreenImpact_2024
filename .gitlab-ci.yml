@@ -25,7 +25,7 @@ sonarqube-check:
     - sonar
 
 sonarqube-vulnerability-report:
-  stage: sonarqube-vulnerability-reportreport
+  stage: sonarqube-vulnerability-report
   before_script:
     - apt-get update && apt-get install -y curl 
   script:
