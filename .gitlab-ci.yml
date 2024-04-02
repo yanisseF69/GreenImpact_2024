@@ -22,6 +22,7 @@ sonarqube-check:
     - master
     - main
     - develop
+    - sonar
 
 sonarqube-vulnerability-report:
   stage: sonarqube-vulnerability-report
