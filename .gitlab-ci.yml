@@ -43,7 +43,7 @@ default:
   # Only needed when using a docker container to run your tests in.
   # Check out: https://docs.gitlab.com/ee/ci/services/index.html
   services:
-    - mysql:8.0
+    - postgres:16.2
   #
   # This folder is cached between builds
   # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
@@ -53,7 +53,7 @@ default:
   before_script:
     - apt -y update
     - apt -y install apt-utils
-    - apt -y install net-tools python3.8 python3-pip mysql-client libmysqlclient-dev
+    - apt -y install net-tools python3.10 python3-pip postgresql
     - apt -y upgrade
     - pip3 install -r requirements.txt
 
@@ -61,10 +61,10 @@ default:
 migrations:
   stage: build
   script:
-    - python3 manage.py makemigrations
+    - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
-    - python3 manage.py migrate
-    - python3 manage.py check
+    - python3 ./backend/manage.py migrate
+    - python3 ./backend/manage.py check
 
 
 django-tests:
@@ -77,5 +77,7 @@ django-tests:
 
 deploy:
   stage: deploy
-  script: echo "Define your deployment script!"
+  script: 
+    - scp -r backend gitlabci@192.168.75.19:~ 
+    # - gunicorn backend.wsgi:application --bind localhost:8080
   environment: production
