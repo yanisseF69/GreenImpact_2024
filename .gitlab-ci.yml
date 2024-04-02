@@ -60,7 +60,7 @@ default:
     - python3 --version
     - apt -y install python3-pip
     - apt -y upgrade
-    - pip install -r requirements.txt
+    - python3.10 -m pip install -r requirements.txt
 
 
 migrations:
