@@ -55,7 +55,7 @@ default:
     - apt -y install apt-utils software-properties-common
     - add-apt-repository ppa:deadsnakes/ppa -y
     - apt -y update
-    - apt -y install net-tools python3.10 python3-pip postgresql
+    - apt -y install net-tools python3.10 python3.10-pip postgresql
     - apt -y upgrade
     - python3.10 -m pip install -r requirements.txt
 
