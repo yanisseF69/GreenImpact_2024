@@ -68,6 +68,8 @@ default:
 
 migrations:
   stage: build
+  before_script:
+    - ''
   script:
     - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
@@ -77,6 +79,8 @@ migrations:
 
 django-tests:
   stage: test
+  before_script:
+    - ''
   script:
     # The MYSQL user only gets permissions for MYSQL_DB, so Django can't create a test database.
     # - echo "GRANT ALL on *.* to '${MYSQL_USER}';"| mysql -u root --password="${MYSQL_ROOT_PASSWORD}" -h mysql
@@ -85,6 +89,8 @@ django-tests:
 
 deploy:
   stage: deploy
+  before_script:
+    - apt -y install openssh-client
   script: 
     - scp -r backend gitlabci@192.168.75.19:~ 
     # - gunicorn backend.wsgi:application --bind localhost:8080
