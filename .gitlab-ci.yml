@@ -69,7 +69,7 @@ default:
 migrations:
   stage: build
   before_script:
-    - ''
+    - source .venv/bin/activate
   script:
     - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
@@ -80,7 +80,7 @@ migrations:
 django-tests:
   stage: test
   before_script:
-    - ''
+    - source .venv/bin/activate
   script:
     # The MYSQL user only gets permissions for MYSQL_DB, so Django can't create a test database.
     # - echo "GRANT ALL on *.* to '${MYSQL_USER}';"| mysql -u root --password="${MYSQL_ROOT_PASSWORD}" -h mysql
