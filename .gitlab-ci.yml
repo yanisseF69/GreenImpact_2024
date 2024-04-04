@@ -89,6 +89,6 @@ deploy:
   stage: deploy    
   script: 
     - apt -y install openssh-client
-    - scp -r backend gitlabci@192.168.75.19:~ 
+    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY backend gitlabci@192.168.75.19:~ 
     # - gunicorn backend.wsgi:application --bind localhost:8080
   environment: production
