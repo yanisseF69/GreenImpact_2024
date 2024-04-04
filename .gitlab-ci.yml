@@ -37,21 +37,11 @@ variables:
   MYSQL_PASSWORD: $MYSQL_PASS
 
 stages:
-  - install_deps
   - build
   - test
   - deploy
 
 default:
-  image: ubuntu:20.04
-  #
-  # Pick zero or more services to be used on all builds.
-  # Only needed when using a docker container to run your tests in.
-  # Check out: https://docs.gitlab.com/ee/ci/services/index.html
-  services:
-    - postgres:16.2
-    - python:3.10
-    - 
   #
   # This folder is cached between builds
   # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
