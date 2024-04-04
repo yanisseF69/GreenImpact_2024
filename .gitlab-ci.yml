@@ -58,31 +58,31 @@ default:
       - ~/.cache/pip/
     
 
-Install dependencies:
+install dependencies:
   stage: install_deps
   cache:
     key:
-      file:
+      files:
         - requirements.txt
-    script: 
-      - apt -y update
-      - apt -y install apt-utils software-properties-common
-      - add-apt-repository ppa:deadsnakes/ppa -y
-      - apt -y update
-      - apt -y install net-tools python3.10 python3.10-venv postgresql
-      - apt -y install python3-pip
-      - apt -y upgrade
-      - python3.10 -m venv .venv
-      - source .venv/bin/activate
-      - pip install --upgrade pip 
-      - pip install -r requirements.txt
+  script: 
+    - apt -y update
+    - apt -y install apt-utils software-properties-common
+    - add-apt-repository ppa:deadsnakes/ppa -y
+    - apt -y update
+    - apt -y install net-tools python3.10 python3.10-venv postgresql
+    - apt -y install python3-pip
+    - apt -y upgrade
+    - python3.10 -m venv .venv
+    - source .venv/bin/activate
+    - pip install --upgrade pip 
+    - pip install -r requirements.txt
 
 
 migrations:
   stage: build 
   cache:
     key:
-      file:
+      files:
         - requirements.txt
   before_script: 
     - source .venv/bin/activate
@@ -97,7 +97,7 @@ django-tests:
   stage: test
   cache:
     key:
-      file:
+      files:
         - requirements.txt
   before_script:
     - source .venv/bin/activate
