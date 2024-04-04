@@ -48,7 +48,7 @@ default:
   cache:
     paths:
       - ~/.cache/pip/
-  script: 
+  before_script: 
     - apt -y update
     - apt -y upgrade
     - python3 -m venv .venv
@@ -60,8 +60,6 @@ default:
 migrations:
   stage: build 
   cache:
-  before_script: 
-    - source .venv/bin/activate
   script:
     - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
