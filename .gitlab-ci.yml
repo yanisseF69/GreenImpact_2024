@@ -55,12 +55,14 @@ default:
     - source .venv/bin/activate
     - pip install --upgrade pip 
     - pip install -r requirements.txt
-    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY backend gitlabci@192.168.75.19:~ 
     
 migrations:
   stage: build 
   cache:
+  before_script:
+    - ''
   script:
+    - cp -r <working-directory>/builds/<short-token>/<concurrent-id>/<namespace>/  ~/
     - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
     - python3 ./backend/manage.py migrate
@@ -78,9 +80,10 @@ django-tests:
     - python3 ./backend/manage.py test
 
 deploy:
-  stage: deploy    
+  stage: deploy   
+  before_script:
+    - '' 
   script: 
-    - apt -y install openssh-client
-    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY backend gitlabci@192.168.75.19:~ 
-    # - gunicorn backend.wsgi:application --bind localhost:8080
+    - echo 'Deployement'
+    - gunicorn backend.wsgi:application --bind localhost:8080
   environment: production
