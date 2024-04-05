@@ -45,6 +45,8 @@ stages:
 
 Install dependencies:
   stage: install_dep
+  tags:
+    - shell
   script:
     - apt -y update
     - apt -y upgrade
@@ -55,6 +57,8 @@ Install dependencies:
     
 migrations:
   stage: build 
+  tags:
+    - shell
   cache:
   before_script:
     - ''
@@ -68,6 +72,8 @@ migrations:
 
 django-tests:
   stage: test
+  tags:
+    - shell
   before_script:
     - source .venv/bin/activate
   script:
@@ -77,7 +83,9 @@ django-tests:
     - python3 ./backend/manage.py test
 
 deploy:
-  stage: deploy   
+  stage: deploy 
+  tags:
+    - shell  
   before_script:
     - '' 
   script: 
