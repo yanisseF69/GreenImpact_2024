@@ -1737,6 +1737,11 @@ section {
 /* Apply styles when the label is focused via keyboard navigation */
 .btn-outline-success:focus {
   outline: none;
-  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.5); /* Bootstrap's style for focus */
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.5);
 }
 
+.chart-container {
+  max-width: 300px; 
+  height: 300px;
+  margin: auto; 
+}
