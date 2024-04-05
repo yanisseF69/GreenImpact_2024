@@ -15,7 +15,7 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script: 
-    - sonar-scanner -X -Dproject.settings=sonar/sonar-project.properties
+    - sonar-scanner
   allow_failure: true
   only:
     - merge_requests
