@@ -50,8 +50,8 @@ Install dependencies:
   script:
     - apt -y update
     - apt -y upgrade
-    - python3 -m venv .venv
-    - source .venv/bin/activate
+    - python3 -m venv /home/p1914082/.venv
+    - source /home/p1914082/.venv/bin/activate
     - pip install --upgrade pip 
     - pip install -r requirements.txt
     
@@ -60,10 +60,9 @@ migrations:
   tags:
     - shell
   cache:
-  before_script:
-    - ''
   script:
     - cp -r /home/p1914082/builds/HkSyeJBEa/0/mif10-groupe-16/m1if10-groupe-16/*  /home/p1914082/
+    - source /home/p1914082/.venv/bin/activate
     - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
     - python3 ./backend/manage.py migrate
@@ -74,12 +73,11 @@ django-tests:
   stage: test
   tags:
     - shell
-  before_script:
-    - source .venv/bin/activate
   script:
     # The MYSQL user only gets permissions for MYSQL_DB, so Django can't create a test database.
     # - echo "GRANT ALL on *.* to '${MYSQL_USER}';"| mysql -u root --password="${MYSQL_ROOT_PASSWORD}" -h mysql
     # use python3 explicitly. see https://wiki.ubuntu.com/Python/3
+    - source /home/p1914082/.venv/bin/activate
     - python3 ./backend/manage.py test
 
 deploy:
