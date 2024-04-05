@@ -15,3 +15,4 @@ sudo ./sonar/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
      -Dproject.settings=sonar/sonar-project.properties   \
      -Dsonar.token=<votreToken>
 ```
+Sonar est appele automatiquement lors de chaque push sur le serveur git.
