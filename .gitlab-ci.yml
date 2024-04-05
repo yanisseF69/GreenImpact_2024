@@ -35,7 +35,7 @@ variables:
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
   MYSQL_USER: $MYSQL_USER
   MYSQL_PASSWORD: $MYSQL_PASS
-  BUILD_PATH: ~/builds/HkSyeJBEa/$CI_CONCURRENT_PROJECT_ID/m1if10-groupe-16/
+  BUILD_PATH: ~/builds/HkSyeJBEa/$CI_CONCURRENT_PROJECT_ID/mif10-groupe-16/m1if10-groupe-16
 
 stages:
   - install_dep
