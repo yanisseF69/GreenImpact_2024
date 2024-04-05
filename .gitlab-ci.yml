@@ -37,18 +37,14 @@ variables:
   MYSQL_PASSWORD: $MYSQL_PASS
 
 stages:
+  - install_dep
   - build
   - test
   - deploy
 
-default:
-  #
-  # This folder is cached between builds
-  # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
-  cache:
-    paths:
-      - ~/.cache/pip/
-  before_script: 
+Install dependencies:
+  stage: install_dep
+  script:
     - apt -y update
     - apt -y upgrade
     - python3 -m venv .venv
