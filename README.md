@@ -15,4 +15,4 @@ Sonar est un outil de qualité de code. Pour vérifier que notre projet est conf
      -Dsonar.projectKey=mif10-groupe-16_m1if10-groupe-16_AY6KmI2au4zgX3p-IR_e   \
      -Dsonar.sources=. -Dsonar.host.url=https://sonar.info.univ-lyon1.fr   \
      -Dsonar.token=sqp_2b80637d2708c6d6bfad01b2dedf0bdfd96c77d3
-``` -->
+``` --> 
