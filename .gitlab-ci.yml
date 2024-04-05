@@ -63,7 +63,7 @@ migrations:
   before_script:
     - ''
   script:
-    - cp -r /home/p1914082/builds/HkSyeJBEa/0/mif10-groupe-16/m1if10-groupe-16/*  ~/
+    - cp -r /home/p1914082/builds/HkSyeJBEa/0/mif10-groupe-16/m1if10-groupe-16/*  /home/p1914082/
     - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
     - python3 ./backend/manage.py migrate
