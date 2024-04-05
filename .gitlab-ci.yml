@@ -63,7 +63,7 @@ migrations:
   before_script:
     - ''
   script:
-    - cp -r "~/builds/HkSyeJBEa/$CI_CONCURRENT_PROJECT_ID/mif10-groupe-16/m1if10-groupe-16"/*  ~/
+    - cp -r BUILD_PATH  ~/
     - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
     - python3 ./backend/manage.py migrate
