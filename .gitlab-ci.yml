@@ -63,7 +63,7 @@ migrations:
   before_script:
     - ''
   script:
-    - cp -r BUILD_PATH  ~/
+    - cp -r $BUILD_PATH  ~/
     - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
     - python3 ./backend/manage.py migrate
