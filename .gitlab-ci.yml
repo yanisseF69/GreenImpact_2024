@@ -5,7 +5,7 @@ stages:
 sonarqube-check:
   stage: sonarqube-check
   image: 
-    name: sonarsource/sonar-scanner-cli:last
+    name: sonarsource/sonar-scanner-cli:5.0
     entrypoint: [""]
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
@@ -15,7 +15,7 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script: 
-    - sonar-scanner -X -Dproject.settings=sonar/sonar-project.properties
+    - sonar-scanner
   allow_failure: true
   only:
     - merge_requests
