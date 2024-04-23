@@ -28,6 +28,7 @@ build/
 
 ### Python ###
 **/*.pyc
+.env
 
 ### Sonar ###
 .scannerwork/

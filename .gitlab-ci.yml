@@ -1,11 +1,13 @@
 stages:
+    - test
     - sonarqube-check
     - sonarqube-vulnerability-report
+    
 
 sonarqube-check:
   stage: sonarqube-check
   image: 
-    name: sonarsource/sonar-scanner-cli:5.0
+    name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
@@ -43,3 +45,16 @@ sonarqube-vulnerability-report:
       sast: gl-sast-sonar-report.json
   dependencies:
     - sonarqube-check
+
+pylint:
+  stage: test
+  image: python:3.11
+  script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - pylint ./backend/backend/
+    - pylint ./backend/greenimpact/
+  only:
+    - merge_requests
+    - main
+    - sonar
