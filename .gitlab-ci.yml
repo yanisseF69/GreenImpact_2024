@@ -53,14 +53,15 @@ default:
   #
   # This folder is cached between builds
   # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
-  cache:
-    paths:
-      - ~/.cache/pip/
-      - ~/.venv
+  
     
 
 install dependencies:
   stage: install_deps
+  cache:
+    paths:
+      - ~/.cache/pip/
+      - ~/.venv
   script: 
     - apt -y update
     - apt install python3 python3-pip python3.10-venv -y
@@ -73,6 +74,10 @@ install dependencies:
 
 migrations:
   stage: build 
+  cache:
+    paths:
+      - ~/.cache/pip/
+      - ~/.venv
   script:
     - source ~/.venv/bin/activate
     - python3 ./backend/manage.py makemigrations
@@ -83,6 +88,10 @@ migrations:
 
 django-tests:
   stage: test
+  cache:
+    paths:
+      - ~/.cache/pip/
+      - ~/.venv
   script:
     - source ~/.venv/bin/activate
     # The MYSQL user only gets permissions for MYSQL_DB, so Django can't create a test database.
@@ -91,7 +100,11 @@ django-tests:
     - python3 ./backend/manage.py test
 
 deploy:
-  stage: deploy    
+  stage: deploy   
+  cache:
+    paths:
+      - ~/.cache/pip/
+      - ~/.venv 
   script: 
     - apt -y install openssh-client
     - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY backend gitlabci@192.168.75.19:~ 
