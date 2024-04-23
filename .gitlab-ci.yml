@@ -43,3 +43,13 @@ sonarqube-vulnerability-report:
       sast: gl-sast-sonar-report.json
   dependencies:
     - sonarqube-check
+
+pylint:
+  stage: test
+  script:
+    - pylint --load-plugins pylint_django backend/backend/
+    - pylint --load-plugins pylint_django backend/greenimpact/
+  only:
+    - merge_requests
+    - main
+    - sonar
