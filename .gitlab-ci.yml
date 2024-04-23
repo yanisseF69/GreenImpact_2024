@@ -47,6 +47,7 @@ sonarqube-vulnerability-report:
 pylint:
   stage: test
   script:
+    - pip install pylint pylint-django
     - pylint --load-plugins pylint_django backend/backend/
     - pylint --load-plugins pylint_django backend/greenimpact/
   only:
