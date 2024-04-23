@@ -48,7 +48,7 @@ sonarqube-vulnerability-report:
 
 pylint:
   stage: test
-  image: python:3.8
+  image: python:3.11
   script:
     - pip install --upgrade pip
     - pip install -r requirements.txt
