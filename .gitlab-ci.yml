@@ -83,6 +83,7 @@ django-tests:
 deploy:
   stage: deploy  
   before_script:
+    - apt -y update
     - apt -y install openssh-client
   script: 
     - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY backend gitlabci@192.168.75.19:~ 
