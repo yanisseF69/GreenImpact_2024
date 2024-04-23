@@ -85,7 +85,7 @@ deploy:
   before_script:
     - apt -y update
     - apt -y install openssh-client
-    - chmod 400 "$GITLABCI_SSH_KEY"
+    - chmod 400 $GITLABCI_SSH_KEY
     - ssh-add "$GITLABCI_SSH_KEY" | tr -d '\r'
   script: 
     - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY backend gitlabci@192.168.75.19:~ 
