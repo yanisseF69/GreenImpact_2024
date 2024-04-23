@@ -62,7 +62,13 @@ install dependencies:
     paths:
       - ~/.cache/pip/
       - ~/.venv
-  
+  artifacts:
+    paths:
+      - ~/.cache/pip/
+      - ~/.venv
+    untracked: false
+    when: on_success
+    expire_in: 30 days
   script: 
     - apt -y update
     - apt install python3 python3-pip python3.10-venv -y
