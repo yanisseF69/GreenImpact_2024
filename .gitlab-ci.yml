@@ -49,7 +49,7 @@ sonarqube-vulnerability-report:
 pylint:
   stage: test
   script:
-    - apt-get update && apt-get install python3-pip
+    - apt-get update -y && apt-get install -y python3-pip
     - pip install pylint pylint-django
     - pylint --load-plugins pylint_django backend/backend/
     - pylint --load-plugins pylint_django backend/greenimpact/
