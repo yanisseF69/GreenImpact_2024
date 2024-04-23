@@ -8,7 +8,6 @@ def start(request):
 
     ids = []
     questions=[]
-
     while (len(ids) < 8):
 
         with connection.cursor() as cursor:
