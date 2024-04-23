@@ -1,6 +1,7 @@
 stages:
     - sonarqube-check
     - sonarqube-vulnerability-report
+    - test
 
 sonarqube-check:
   stage: sonarqube-check
