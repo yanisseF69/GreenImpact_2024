@@ -52,8 +52,8 @@ pylint:
   script:
     - pip install --upgrade pip
     - pip install -r requirements.txt
-    - pylint --load-plugins pylint_django backend/backend/
-    - pylint --load-plugins pylint_django backend/greenimpact/
+    - pylint ./backend/backend/
+    - pylint ./backend/greenimpact/
   only:
     - merge_requests
     - main
