@@ -58,6 +58,8 @@ default:
 
 install dependencies:
   stage: install_deps
+  tags:
+    - pip-venv
   cache:
     paths:
       - ~/.cache/pip/
@@ -74,6 +76,8 @@ install dependencies:
 
 migrations:
   stage: build 
+  tags:
+    - pip-venv
   cache:
     paths:
       - ~/.cache/pip/
@@ -88,6 +92,8 @@ migrations:
 
 django-tests:
   stage: test
+  tags:
+    - pip-venv
   cache:
     paths:
       - ~/.cache/pip/
@@ -100,7 +106,9 @@ django-tests:
     - python3 ./backend/manage.py test
 
 deploy:
-  stage: deploy   
+  stage: deploy  
+  tags:
+    - pip-venv 
   cache:
     paths:
       - ~/.cache/pip/
