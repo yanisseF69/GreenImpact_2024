@@ -82,8 +82,9 @@ django-tests:
 
 deploy:
   stage: deploy  
-  script: 
+  before_script:
     - apt -y install openssh-client
+  script: 
     - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY backend gitlabci@192.168.75.19:~ 
-    # - gunicorn backend.wsgi:application --bind localhost:8080
+    - gunicorn backend.wsgi:application --bind localhost:8080
   environment: production
