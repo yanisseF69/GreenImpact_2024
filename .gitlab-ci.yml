@@ -66,7 +66,6 @@ install dependencies:
       - ~/.cache/pip/
   script: 
     - apt -y update
-    - apt -y install net-tools python3.10 python3.10-venv postgresql python3-pip
     - apt -y upgrade
     - python3.10 -m venv .venv
     - source .venv/bin/activate
