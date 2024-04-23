@@ -58,17 +58,12 @@ default:
 
 install dependencies:
   stage: install_deps
+  tags:
+    - docker-ci-build
   cache:
     paths:
       - ~/.cache/pip/
       - ~/.venv
-  artifacts:
-    paths:
-      - ~/.cache/pip/
-      - ~/.venv
-    untracked: false
-    when: on_success
-    expire_in: 30 days
   script: 
     - apt -y update
     - apt install python3 python3-pip python3.10-venv -y
@@ -81,17 +76,12 @@ install dependencies:
 
 migrations:
   stage: build 
+  tags:
+    - docker-ci-build
   cache:
     paths:
       - ~/.cache/pip/
       - ~/.venv
-  artifacts:
-    paths:
-      - ~/.cache/pip/
-      - ~/.venv
-    untracked: false
-    when: on_success
-    expire_in: 30 days
   script:
     - source ~/.venv/bin/activate
     - python3 ./backend/manage.py makemigrations
@@ -102,6 +92,8 @@ migrations:
 
 django-tests:
   stage: test
+  tags:
+    - docker-ci-build
   cache:
     paths:
       - ~/.cache/pip/
