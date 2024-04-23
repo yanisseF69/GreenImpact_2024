@@ -88,13 +88,21 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-ssh_tunnel = SSHTunnelForwarder(
-    "192.168.75.19",
-    ssh_private_key=env('PATH_TO_SSH_PRIVATE_KEY'),
-    ssh_username=env('SSH_USERNAME'),
-    remote_bind_address=('localhost', 5432),
-)
-ssh_tunnel.start()
+try:
+    ssh_tunnel = SSHTunnelForwarder(
+        "192.168.75.19",
+        ssh_private_key=env('PATH_TO_SSH_PRIVATE_KEY'),
+        ssh_username=env('SSH_USERNAME'),
+        remote_bind_address=('localhost', 5432),
+    )
+    ssh_tunnel.start()
+    print("Connexion SSH établie avec succès !")
+
+except Exception as e:
+    print("Erreur lors de la connexion SSH :", e)
+    print("Le programme va continuer malgré l'échec de la connexion SSH")
+    print("car pour le cas de la VM, la connexion SSH n'est pas nécessaire.")
+
 
 
 DATABASES = {

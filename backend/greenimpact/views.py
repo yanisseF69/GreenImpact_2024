@@ -24,9 +24,7 @@ def start(request):
 
             cursor.execute(query, [categorie_id])
             row = cursor.fetchone()
-            print(row[2])
             if row[2] not in ids:
-                print(len(ids))
                 ids.append(row[2])
                 query = "SELECT nom_categorie FROM greenimpact_categorie WHERE id = %s"
                 cursor.execute(query, [row[1]])
