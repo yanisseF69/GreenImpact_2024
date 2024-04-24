@@ -41,6 +41,11 @@ stages:
   - test
   - deploy
 
+cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+        - .apt/
+
 default:
   image: ubuntu:22.04
   #
@@ -53,8 +58,12 @@ default:
   # This folder is cached between builds
   # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
   before_script:
-    - apt -y update
-    - apt install python3 python3-pip python3.10-venv -y
+    - export APT_DIR=.apt
+    - export APT_STATE_LISTS=$APT_DIR/lists
+    - export APT_CACHE_ARCHIVES=$APT_DIR/archives
+    - mkdir -p $APT_CACHE_ARCHIVES/partial
+    - apt -yq update
+    - apt install --no-install-recommends -y  -o dir::cache::archives="$APT_CACHE_ARCHIVES" python3 python3-pip python3.10-venv
     - apt -y upgrade
     - python3 -m venv ~/.venv
     - source ~/.venv/bin/activate
@@ -82,10 +91,8 @@ django-tests:
 
 deploy:
   stage: deploy     
-  script: 
+  script:   
     - apt -y install openssh-client
     - chmod 400 $GITLABCI_SSH_KEY
-    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ gitlabci@192.168.75.19:~ 
-    - cd $CI_PROJECT_DIR/backend
-    - gunicorn backend.wsgi:application --bind localhost:8080
+    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ requirements.txt gitlabci@192.168.75.19:~ 
   environment: production
