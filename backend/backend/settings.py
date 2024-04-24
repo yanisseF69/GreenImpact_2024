@@ -10,11 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 from pathlib import Path
-from sshtunnel import SSHTunnelForwarder
-
-from pathlib import Path
-from sshtunnel import SSHTunnelForwarder
-
 import environ
 
 GDAL_LIBRARY_PATH = "C:\\Users\\pierr\\anaconda3\\envs\\mif10\\Library\\bin\\gdal.dll"
