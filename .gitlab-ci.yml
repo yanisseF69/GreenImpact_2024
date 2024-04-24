@@ -54,7 +54,6 @@ pylint:
     - pip install -r requirements.txt
     - pylint ./backend/backend/
     - pylint ./backend/greenimpact/
-  allow_failure: true
   only:
     - merge_requests
     - main
