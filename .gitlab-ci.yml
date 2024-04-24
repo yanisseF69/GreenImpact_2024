@@ -80,6 +80,7 @@ pylint:
     - merge_requests
     - main
     - sonar
+    - CI/CD
 
 sonarqube-check:
   stage: sonarqube
@@ -102,6 +103,7 @@ sonarqube-check:
     - main
     - develop
     - sonar
+    - CI/CD
 
 sonarqube-vulnerability-report:
   stage: sonarqube
@@ -117,6 +119,7 @@ sonarqube-vulnerability-report:
     - main
     - develop
     - sonar
+    - CI/CD
   artifacts:
     expire_in: 1 day
     reports:
