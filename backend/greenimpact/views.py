@@ -14,6 +14,8 @@ def start(request):
     ids = [ ]
     questions = [ ]
 
+    print("requete start")
+    print(request)
     while len(ids) < 8:
 
         with connection.cursor() as cursor:
