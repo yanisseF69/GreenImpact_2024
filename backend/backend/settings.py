@@ -9,8 +9,15 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
 from pathlib import Path
+from sshtunnel import SSHTunnelForwarder
+
+import environ
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +32,7 @@ SECRET_KEY = 'django-insecure-nmzptyda@v8#x8s7)kp^q+wbo$sslpkdspz&e!duqc_m_6qqe(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.208.3', '0.0.0.0']
 
 
 # Application definition
@@ -53,6 +60,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
@@ -77,11 +86,24 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+ssh_tunnel = SSHTunnelForwarder(
+    "192.168.75.19",
+    ssh_private_key=env('PATH_TO_SSH_PRIVATE_KEY'),
+    ssh_username=env('SSH_USERNAME'),
+    remote_bind_address=('localhost', 5432),
+)
+ssh_tunnel.start()
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'HOST': 'localhost',
+        'PORT': 5432,
+        'NAME': "mif10",
+        'USER': "admin",
+        'PASSWORD': "admin",
+    },
 }
 
 

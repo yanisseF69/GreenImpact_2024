@@ -5,6 +5,7 @@ variables:
   MYSQL_PASSWORD: $MYSQL_PASS
 
 stages:
+<<<<<<< HEAD
   - build
   - test
   - sonarqube
@@ -82,6 +83,12 @@ pylint:
     - main
     - sonar
     - CI/CD
+=======
+    - test
+    - sonarqube-check
+    - sonarqube-vulnerability-report
+    
+>>>>>>> main
 
 sonarqube-check:
   stage: sonarqube
@@ -104,6 +111,7 @@ sonarqube-check:
     - main
     - develop
     - sonar
+<<<<<<< HEAD
     - CI/CD
 
 sonarqube-vulnerability-report:
@@ -111,6 +119,13 @@ sonarqube-vulnerability-report:
   before_script:
     - apt-get update
     - apt-get install --no-install-recommends -y -o dir::cache::archives="$APT_CACHE_ARCHIVES" curl 
+=======
+
+sonarqube-vulnerability-report:
+  stage: sonarqube-vulnerability-report
+  before_script:
+    - apt-get update && apt-get install -y curl 
+>>>>>>> main
   script:
     - 'curl -u "${SONAR_TOKEN}:" "${SONAR_HOST_URL}/api/issues/gitlab_sast_export?projectKey=mif10-groupe-16_m1if10-groupe-16_AY6KmI2au4zgX3p-IR_e&branch=${CI_COMMIT_BRANCH}&pullRequest=${CI_MERGE_REQUEST_IID}" -o gl-sast-sonar-report.json'
   allow_failure: true
@@ -120,7 +135,10 @@ sonarqube-vulnerability-report:
     - main
     - develop
     - sonar
+<<<<<<< HEAD
     - CI/CD
+=======
+>>>>>>> main
   artifacts:
     expire_in: 1 day
     reports:
@@ -128,6 +146,7 @@ sonarqube-vulnerability-report:
   dependencies:
     - sonarqube-check
 
+<<<<<<< HEAD
 deploy:
   stage: deploy   
   script:   
@@ -136,3 +155,17 @@ deploy:
     - chmod 400 $GITLABCI_SSH_KEY
     - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ requirements.txt gitlabci@192.168.75.19:~ 
   environment: production
+=======
+pylint:
+  stage: test
+  image: python:3.11
+  script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - pylint ./backend/backend/
+    - pylint ./backend/greenimpact/
+  only:
+    - merge_requests
+    - main
+    - sonar
+>>>>>>> main
