@@ -35,34 +35,47 @@ variables:
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
   MYSQL_USER: $MYSQL_USER
   MYSQL_PASSWORD: $MYSQL_PASS
-  BUILD_PATH: ~/builds/HkSyeJBEa/0/mif10-groupe-16/m1if10-groupe-16/*
 
 stages:
-  - install_dep
   - build
   - test
   - deploy
 
-Install dependencies:
-  stage: install_dep
-  tags:
-    - shell
-  script:
-    - apt -y update
-    - apt -y upgrade
-    - python3 -m venv /home/p1914082/.venv
-    - source /home/p1914082/.venv/bin/activate
-    - pip install --upgrade pip 
-    - pip install -r requirements.txt
-    
+cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+        - .apt/
+        - $CI_PROJECT_DIR/.cache/pip
+
+default:
+  image: ubuntu:22.04
+  #
+  # Pick zero or more services to be used on all builds.
+  # Only needed when using a docker container to run your tests in.
+  # Check out: https://docs.gitlab.com/ee/ci/services/index.html
+  services:
+    - postgres:16.2
+  #
+  # This folder is cached between builds
+  # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
+  
+
 migrations:
   stage: build 
-  tags:
-    - shell
-  cache:
+  before_script:
+    - export APT_DIR=.apt
+    - export APT_STATE_LISTS=$APT_DIR/lists
+    - export APT_CACHE_ARCHIVES=$APT_DIR/archives
+    - mkdir -p $APT_CACHE_ARCHIVES/partial
+    - apt -yq update
+    - apt install --no-install-recommends -y  -o dir::cache::archives="$APT_CACHE_ARCHIVES" python3 python3-pip python3.10-venv openssh-client
+    - apt -y upgrade
+    - python3 -m venv ~/.venv
+    - source ~/.venv/bin/activate
+    - pip3 install --upgrade pip 
+    - pip3 install -r requirements.txt
   script:
-    - cp -r /home/p1914082/builds/HkSyeJBEa/0/mif10-groupe-16/m1if10-groupe-16/*  /home/p1914082/
-    - source /home/p1914082/.venv/bin/activate
+    - source ~/.venv/bin/activate
     - python3 ./backend/manage.py makemigrations
     # - python3 manage.py makemigrations myapp
     - python3 ./backend/manage.py migrate
@@ -71,22 +84,25 @@ migrations:
 
 django-tests:
   stage: test
-  tags:
-    - shell
+  before_script:
+    - apt -yq update
+    - apt install --no-install-recommends -y  -o dir::cache::archives="$APT_CACHE_ARCHIVES" python3 python3-pip python3.10-venv openssh-client
+    - python3 -m venv ~/.venv
+    - source ~/.venv/bin/activate
+    - pip3 install --upgrade pip 
+    - pip3 install -r requirements.txt
   script:
+    - source ~/.venv/bin/activate
     # The MYSQL user only gets permissions for MYSQL_DB, so Django can't create a test database.
     # - echo "GRANT ALL on *.* to '${MYSQL_USER}';"| mysql -u root --password="${MYSQL_ROOT_PASSWORD}" -h mysql
     # use python3 explicitly. see https://wiki.ubuntu.com/Python/3
-    - source /home/p1914082/.venv/bin/activate
     - python3 ./backend/manage.py test
 
 deploy:
-  stage: deploy 
-  tags:
-    - shell  
-  before_script:
-    - '' 
-  script: 
-    - echo 'Deployement'
-    - gunicorn backend.wsgi:application --bind localhost:8080
+  stage: deploy   
+  script:   
+    - apt -yq update
+    - apt install --no-install-recommends -y -o dir::cache::archives="$APT_CACHE_ARCHIVES" openssh-client
+    - chmod 400 $GITLABCI_SSH_KEY
+    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ requirements.txt gitlabci@192.168.75.19:~ 
   environment: production
