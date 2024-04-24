@@ -40,7 +40,6 @@ migrations:
     - apt -yq update
     - apt install --no-install-recommends -y  -o dir::cache::archives="$APT_CACHE_ARCHIVES" python3 python3-pip python3.10-venv openssh-client
     - apt -y upgrade
-    - pg_config --version
     - python3 -m venv ~/.venv
     - source ~/.venv/bin/activate
     - pip3 install --upgrade pip 
