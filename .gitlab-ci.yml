@@ -101,6 +101,7 @@ django-tests:
 deploy:
   stage: deploy   
   script:   
+    - apt -yq update
     - apt install --no-install-recommends -y -o dir::cache::archives="$APT_CACHE_ARCHIVES" openssh-client
     - chmod 400 $GITLABCI_SSH_KEY
     - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ requirements.txt gitlabci@192.168.75.19:~ 
