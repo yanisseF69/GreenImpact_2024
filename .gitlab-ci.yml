@@ -90,7 +90,9 @@ django-tests:
     - python3 ./backend/manage.py test
 
 deploy:
-  stage: deploy     
+  stage: deploy   
+  before_script:
+    - ""  
   script:   
     - apt -y install openssh-client
     - chmod 400 $GITLABCI_SSH_KEY
