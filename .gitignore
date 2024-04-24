@@ -28,7 +28,7 @@ build/
 
 ### Python ###
 **/*.pyc
-backend/backend/.env
+**/.env
 
 ### Sonar ###
 .scannerwork/
