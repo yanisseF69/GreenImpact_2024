@@ -84,6 +84,11 @@ migrations:
 
 django-tests:
   stage: test
+  before_script:
+    - python3 -m venv ~/.venv
+    - source ~/.venv/bin/activate
+    - pip3 install --upgrade pip 
+    - pip3 install -r requirements.txt
   script:
     - source ~/.venv/bin/activate
     # The MYSQL user only gets permissions for MYSQL_DB, so Django can't create a test database.
@@ -94,7 +99,6 @@ django-tests:
 deploy:
   stage: deploy   
   script:   
-    - apt -y install openssh-client
     - chmod 400 $GITLABCI_SSH_KEY
     - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ requirements.txt gitlabci@192.168.75.19:~ 
   environment: production
