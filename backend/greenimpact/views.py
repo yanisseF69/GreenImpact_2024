@@ -2,6 +2,8 @@
 
 from django.db import connection
 from django.http import JsonResponse
+from django.shortcuts import render
+
 
 # Create your views here.
 
@@ -59,7 +61,12 @@ def start(request):
                 questions.append(question)
 
 
-    return JsonResponse(questions, safe=False)
+    return render(request, 'radioQuestion.html', questions)
+
+def accueil(request):
+
+    return render(request, 'index.html')
+
 
 def result(request):
     '''
