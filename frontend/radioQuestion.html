@@ -77,40 +77,23 @@
         </div>
 
         <div class="col-md-8 col-lg-6">
+          {% for question in questions %}
           <div class="card">
             <div class="card-body">
               <div class="d-flex flex-row justify-content-between align-items-center mcq">
-                <h4>Catégorie</h4>
+                <h4>Catégorie : {{ question.categorie }}</h4>
               </div>
               <div class="question bg-white p-3 border-top border-bottom">
                 <div class="d-flex flex-row align-items-center question-title">
-                  <h5 class="mt-1 ml-2">Quels sont vos modes de déplacements "efficaces" ?</h5>
+                  <h5 class="mt-1 ml-2">{{ question.titre }}</h5>
                 </div>
                 <form>
+                  {% for choix in question.choix %}
                   <div class="mb-2">
-                    <input class="btn-check" type="radio" name="transportMode" id="car" autocomplete="off">
-                    <label class="btn btn-outline-success w-100" for="car">Voiture</label>
+                    <input class="btn-check" type="radio" name="{{ question.type }}" id="{{ choix.nom }}" autocomplete="off">
+                    <label class="btn btn-outline-success w-100" for="{{ choix.nom }}">{{ choix.nom }}</label>
                   </div>
-        
-                  <div class="mb-2">
-                    <input class="btn-check" type="radio" name="transportMode" id="tram" autocomplete="off">
-                    <label class="btn btn-outline-success w-100" for="tram">Tram</label>
-                  </div>
-        
-                  <div class="mb-2">
-                    <input class="btn-check" type="radio" name="transportMode" id="bus" autocomplete="off">
-                    <label class="btn btn-outline-success w-100" for="bus">Bus</label>
-                  </div>
-        
-                  <div class="mb-2">
-                    <input class="btn-check" type="radio" name="transportMode" id="metro" autocomplete="off">
-                    <label class="btn btn-outline-success w-100" for="metro">Metro</label>
-                  </div>
-        
-                  <div class="mb-2">
-                    <input class="btn-check" type="radio" name="transportMode" id="bike" autocomplete="off">
-                    <label class="btn btn-outline-success w-100" for="bike">Vélo</label>
-                  </div>
+                  {% endfor %}
               </div>
                   <div class="text-end">
                     <button type="submit" class="btn btn-success mt-3">Continuer</button>
@@ -118,6 +101,7 @@
                 </form>              
             </div>
           </div>
+          {% endfor %}
         </div>
       </div>
     </div>

@@ -40,7 +40,7 @@ def start(request):
                 categorie = cursor.fetchone()
                 query = '''SELECT texte_option, empreinte_carbonne, id_option
                             FROM greenimpact_option
-                            WHERE id_typ = %s;'''
+                            WHERE id_typ = %s LIMIT 5;'''
                 cursor.execute(query, [row[0]])
                 options = cursor.fetchall()
                 choix = [ ]
@@ -64,7 +64,10 @@ def start(request):
     return render(request, 'radioQuestion.html', {'questions': questions})
 
 
-def accueil(request):
+def index(request):
+    """
+    This function is just used to render the index page on the "/" route.
+    """
 
     return render(request, 'index.html')
 
