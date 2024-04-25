@@ -10,14 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 from pathlib import Path
-from sshtunnel import SSHTunnelForwarder
-
 import environ
+
+GDAL_LIBRARY_PATH = "C:\\Users\\pierr\\anaconda3\\envs\\mif10\\Library\\bin\\gdal.dll"
 
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,24 +85,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-ssh_tunnel = SSHTunnelForwarder(
-    "192.168.75.19",
-    ssh_private_key=env('PATH_TO_SSH_PRIVATE_KEY'),
-    ssh_username=env('SSH_USERNAME'),
-    remote_bind_address=('localhost', 5432),
-)
-ssh_tunnel.start()
 
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'HOST': 'localhost',
-        'PORT': 5432,
-        'NAME': "mif10",
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mif10',
         'USER': "admin",
         'PASSWORD': "admin",
-    },
+        'HOST': '192.168.75.19',
+        'PORT': '',
+    }
 }
 
 
