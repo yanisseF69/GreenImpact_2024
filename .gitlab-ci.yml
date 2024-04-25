@@ -47,7 +47,6 @@ migrations:
   script:
     - source ~/.venv/bin/activate
     - python3 ./backend/manage.py makemigrations
-    # - python3 manage.py makemigrations myapp
     - python3 ./backend/manage.py migrate
     - python3 ./backend/manage.py check
 
@@ -133,5 +132,5 @@ deploy:
     - apt -yq update
     - apt install --no-install-recommends -y -o dir::cache::archives="$APT_CACHE_ARCHIVES" openssh-client
     - chmod 400 $GITLABCI_SSH_KEY
-    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ requirements.txt gitlabci@192.168.75.19:~ 
+    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ ./frontend/ requirements.txt gitlabci@192.168.75.19:~ 
   environment: production
