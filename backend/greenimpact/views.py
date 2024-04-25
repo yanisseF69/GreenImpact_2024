@@ -61,7 +61,8 @@ def start(request):
                 questions.append(question)
 
 
-    return render(request, 'radioQuestion.html', questions)
+    return render(request, 'radioQuestion.html', {'questions': questions})
+
 
 def accueil(request):
 
