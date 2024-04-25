@@ -1,5 +1,4 @@
 ''' This file contains the views for the GreenImpact app. '''
-import random
 
 from django.db import connection
 from django.http import JsonResponse
@@ -19,36 +18,56 @@ def start(request):
     while len(ids) < 8:
 
         with connection.cursor() as cursor:
-            categorie_id = random.randint(1,4)
-            query = '''SELECT titre, categorie_id, id
-                        FROM greenimpact_question
-                        WHERE categorie_id = %s ORDER BY RANDOM() LIMIT 1'''
+            query = '''SELECT id_typage, nom_typage, id_categ
+                        FROM greenimpact_typage
+                        ORDER BY RANDOM() LIMIT 1'''
 
-            cursor.execute(query, [categorie_id])
+            cursor.execute(query)
             row = cursor.fetchone()
-            if row[2] not in ids:
-                ids.append(row[2])
-                query = "SELECT nom_categorie FROM greenimpact_categorie WHERE id = %s"
-                cursor.execute(query, [row[1]])
-                categories = cursor.fetchall()
-                query = '''SELECT texte_option, valeur_carbone
-                            FROM greenimpact_option
-                            WHERE id IN (SELECT option_id
-                                        FROM greenimpact_question_option
-                                        WHERE question_id = %s);'''
+            if row[0] not in ids:
+                ids.append(row[0])
+                query = '''SELECT texte_question, type_question
+                           FROM greenimpact_question 
+                           WHERE id_typ = %s'''
+                cursor.execute(query, [row[0]])
+                quest = cursor.fetchone()
+                query = '''SELECT nom_categorie
+                           FROM greenimpact_categorie 
+                           WHERE id_categorie = %s'''
                 cursor.execute(query, [row[2]])
+                categorie = cursor.fetchone()
+                query = '''SELECT texte_option, empreinte_carbonne, id_option
+                            FROM greenimpact_option
+                            WHERE id_typ = %s;'''
+                cursor.execute(query, [row[0]])
                 options = cursor.fetchall()
-                noms = [option[0] for option in options]
-                valeurs = [option[1] for option in options]
-                question = {
-                    "titre" : row[0],
-                    "categorie" : categories[0][0],
-                    "options" : {
-                        "noms" : noms,
-                        "valeurs_carbonne" : valeurs,
+                choix = [ ]
+                for option in options:
+                    reponse = {
+                        "id" : option[2],
+                        "nom" : option[0],
+                        "valeur" : option[1],
                     }
+                    choix.append(reponse)
+                question = {
+                    "titre" : quest[0],
+                    "categorie" : categorie[0],
+                    "type" : row[1],
+                    "choix" : choix,
+                    "unique" : quest[1] == 1,
                 }
                 questions.append(question)
 
 
     return JsonResponse(questions, safe=False)
+
+def result(request):
+    '''
+    This function is use to submit the answers and compute the final result.
+    '''
+
+    print("requete result")
+    print(request)
+    data = { }
+
+    return JsonResponse(data)
