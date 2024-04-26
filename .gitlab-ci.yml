@@ -81,6 +81,7 @@ pylint:
     - main
     - sonar
     - CI/CD
+    - back
 
 sonarqube-check:
   stage: sonarqube
@@ -104,6 +105,7 @@ sonarqube-check:
     - develop
     - sonar
     - CI/CD
+    - back
 
 sonarqube-vulnerability-report:
   stage: sonarqube
@@ -120,6 +122,7 @@ sonarqube-vulnerability-report:
     - develop
     - sonar
     - CI/CD
+    - back
   artifacts:
     expire_in: 1 day
     reports:
@@ -133,5 +136,5 @@ deploy:
     - apt -yq update
     - apt install --no-install-recommends -y -o dir::cache::archives="$APT_CACHE_ARCHIVES" openssh-client
     - chmod 400 $GITLABCI_SSH_KEY
-    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ requirements.txt gitlabci@192.168.75.19:~ 
+    - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ ./frontend/ requirements.txt gitlabci@192.168.75.19:~ 
   environment: production
