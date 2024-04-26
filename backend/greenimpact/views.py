@@ -169,7 +169,7 @@ def result(request):
         request.session.modified = True
 
         if int(page_number) == 10:
-            #TODO: Uncomment the lines to compute the final results,
+            #T ODO: Uncomment the lines to compute the final results,
             #delete the string 'uncomment this' it's just for the pipeline
             result_data = 'uncomment this' #compute_results(request.session['responses'])
             # request.session.flush()
@@ -180,7 +180,7 @@ def result(request):
 
     return redirect('index')
 
-#TODO: Uncomment the lines to compute the final results
+#T ODO: Uncomment the lines to compute the final results
 # def compute_results(all_responses):
 #     """
 #     Combine and compute the final results from the data of all pages.
