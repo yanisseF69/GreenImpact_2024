@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,8 +10,8 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <link href="assets/img/logo.png" rel="icon">
-  <link href="assets/img/logo.png" rel="apple-touch-icon">
+  <link href="{% static 'img/logo.png' %}" rel="icon">
+  <link href="{% static 'img/logo.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link
@@ -18,15 +19,15 @@
     rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Bootslander
@@ -44,11 +45,11 @@
     <div class="container d-flex align-items-center justify-content-between">
       <div class=" logo d-flex align-items-center">
         <!-- Logo Image -->
-        <a href="index.html" class="logo me-3">
-          <img src="assets/img/logo.png" alt="Green Impact logo" class="img-fluid">
+        <a href="/" class="logo me-3">
+          <img src="{% static 'img/logo.png' %}" alt="Green Impact logo" class="img-fluid">
         </a>
         <!-- Titre -->
-        <h1><a href="index.html"><span>Green Impact</span></a></h1>
+        <h1><a href="/"><span>Green Impact</span></a></h1>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -69,15 +70,15 @@
       <div class="row justify-content-between">
         <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
           <div data-aos="zoom-out">
-            <h1>Optimisez votre impacte environnemental en calculant votre empreinte carbone avec <span>Green
-                Impact</span></h1>
+            <h1>Optimisez votre impact environnemental en calculant votre empreinte carbone avec <span>Green
+                Impact</span> !</h1>
             <div class="text-center text-lg-start">
-              <a href="multipleChoiceQuestion.html" class="btn-get-started scrollto">Prendre le quiz</a>
+              <a href="/start" class="btn-get-started scrollto">Prendre le quiz</a>
             </div>
           </div>
         </div>
         <div class="col-lg-4 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
-          <img src="assets/img/Eco conscious-pana.png" class="img-fluid animated" alt="">
+          <img src="{% static 'img/Eco conscious-pana.png' %}" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
@@ -125,7 +126,7 @@
             </div>
           </div>
           <div class="col-xl-5 col-lg-6 d-flex align-items-center justify-content-center" data-aos="fade-right">
-            <img src="assets/img/Environment-bro.png" class="img-fluid" alt="Description de l'image">
+            <img src="{% static 'img/Environment-bro.png' %}" class="img-fluid" alt="Description de l'image">
           </div>
         </div>
       </div>
@@ -264,7 +265,7 @@
           <!-- Top Row - 2 Members -->
           <div class="col-md-4">
             <div class="member">
-              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="{% static 'img/team/team-1.jpg' %}" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Walter White</h4>
                 <span>Chief Executive Officer</span>
@@ -279,7 +280,7 @@
           </div>
           <div class="col-md-4">
             <div class="member">
-              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="{% static 'img/team/team-1.jpg' %}" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Walter White</h4>
                 <span>Chief Executive Officer</span>
@@ -298,7 +299,7 @@
           <!-- Middle Row - Left and Right Members -->
           <div class="col-md-4">
             <div class="member">
-              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="{% static 'img/team/team-1.jpg' %}" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Walter White</h4>
                 <span>Chief Executive Officer</span>
@@ -318,7 +319,7 @@
           </div>
           <div class="col-md-4 text-end">
             <div class="member">
-              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="{% static 'img/team/team-1.jpg' %}" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Walter White</h4>
                 <span>Chief Executive Officer</span>
@@ -337,7 +338,7 @@
           <!-- Bottom Row - 2 Members -->
           <div class="col-md-4">
             <div class="member">
-              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="{% static 'img/team/team-1.jpg' %}" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Walter White</h4>
                 <span>Chief Executive Officer</span>
@@ -352,7 +353,7 @@
           </div>
           <div class="col-md-4">
             <div class="member">
-              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="{% static 'img/team/team-1.jpg' %}" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Walter White</h4>
                 <span>Chief Executive Officer</span>
@@ -440,17 +441,17 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{% static 'js/main.js' %}"></script>
 
 </body>
 
