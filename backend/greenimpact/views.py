@@ -9,6 +9,15 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def get_question_info(total_questions_to_display):
+    """
+    Fetch the first set of question IDs, types, and categories for the quiz.
+
+    Parameters:
+    total_questions_to_display (int): The total number of questions to display.
+
+    Returns:
+    list: A list of tuples containing the question IDs, types, and categories.
+    """
     with connection.cursor() as cursor:
         cursor.execute(
             '''SELECT id_typage, nom_typage, id_categ
@@ -19,6 +28,15 @@ def get_question_info(total_questions_to_display):
         return cursor.fetchall()
 
 def get_question_details(id_typage):
+    """
+    Retrieve the details of a question using its ID.
+
+    Parameters:
+    id_typage (int): The ID of the question.
+
+    Returns:
+    tuple: A tuple containing the text and the type of the question.
+    """
     with connection.cursor() as cursor:
         cursor.execute(
             '''SELECT texte_question, type_question
@@ -28,6 +46,15 @@ def get_question_details(id_typage):
         return cursor.fetchone()
 
 def get_category_name(id_categ):
+    """
+    Get the name of the category using the category ID.
+
+    Parameters:
+    id_categ (int): The ID of the category.
+
+    Returns:
+    str: The name of the category.
+    """
     with connection.cursor() as cursor:
         cursor.execute(
             '''SELECT nom_categorie
@@ -37,6 +64,15 @@ def get_category_name(id_categ):
         return cursor.fetchone()
 
 def get_options(id_typage):
+    """
+    Retrieve the options for a question using its type ID.
+
+    Parameters:
+    id_typage (int): The ID of the question type.
+
+    Returns:
+    list: A list of tuples containing the options' text, carbon footprint, and ID.
+    """
     with connection.cursor() as cursor:
         cursor.execute(
             '''SELECT texte_option, empreinte_carbonne, id_option
@@ -46,6 +82,15 @@ def get_options(id_typage):
         return cursor.fetchall()
 
 def prepare_questions(question_info):
+    """
+    Prepare the list of questions with their details and options for pagination.
+
+    Parameters:
+    question_info (list): A list of tuples containing question information.
+
+    Returns:
+    list: A list of dictionaries, each representing a question and its choices.
+    """
     questions = []
     for id_typage, nom_typage, id_categ in question_info:
         quest = get_question_details(id_typage)
@@ -62,6 +107,15 @@ def prepare_questions(question_info):
     return questions
 
 def start(request):
+    """
+    The view function for the start page that renders the first 10 paginated questions.
+
+    Parameters:
+    request (HttpRequest): The HTTP request object.
+
+    Returns:
+    HttpResponse: The HTTP response object with the rendered template for the start page.
+    """
     page_number = request.GET.get('page', 1)
     questions_per_page = 1
     total_questions_to_display = 10
