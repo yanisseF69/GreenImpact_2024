@@ -1,12 +1,14 @@
 ''' This file contains the views for the GreenImpact app. '''
 
+import logging
 from django.db import connection
-from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
+from django.urls import reverse
 
 
-# Create your views here.
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 def get_question_info(total_questions_to_display):
     """
@@ -138,12 +140,55 @@ def index(request):
 
 
 def result(request):
-    '''
-    This function is use to submit the answers and compute the final result.
-    '''
+    """
+    Process and store user responses on each page of the questionnaire, 
+    and compute final results at the end.
 
-    print("requete result")
-    print(request)
-    data = { }
+    This function handles form submissions for each page of a multi-page questionnaire.
+    It stores responses in the session, once the final page is submitted,
+    it aggregates all responses, computes the final results, and displays the results page. 
 
-    return JsonResponse(data)
+    Parameters:
+    request (HttpRequest): The incoming request object from the user.
+
+    Returns:
+    HttpResponse: Redirects to the next page of the questionnaire if not the last page,
+                   or renders the results page with the computed data if it's the last page.
+                   If the method is not POST, redirects to the index page.
+    """
+    if request.method == 'POST':
+        if 'responses' not in request.session:
+            request.session['responses'] = {}
+        for key in request.POST.keys():
+            if key.endswith('[]'):
+                values = request.POST.getlist(key)
+                request.session['responses'][key] = values
+                logger.debug("Received for %s: %s", key, values)
+            logger.debug("Received for: %s", request.session['responses'])
+        page_number = request.POST.get('page_number')
+        request.session.modified = True
+
+        if int(page_number) == 10:
+            result_data = compute_results(request.session['responses'])
+            request.session.flush()
+            return render(request, 'results.html', {'result_data': result_data})
+
+        next_page = int(page_number) + 1
+        return redirect(f'{reverse("start")}?page={next_page}')
+
+    return redirect('index')
+
+def compute_results(all_responses):
+    """
+    Combine and compute the final results from the data of all pages.
+
+    Parameters:
+    all_responses (dict): Dictionary of responses from all pages.
+
+    Returns:
+    dict: A dictionary with the results of the computations.
+    """
+
+    # Fusionner les réponses ou calculer sur la base des réponses collectées
+    # Retourner un dictionnaire avec les résultats
+    return {}

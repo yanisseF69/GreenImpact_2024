@@ -74,10 +74,13 @@
                 <div class="d-flex flex-row align-items-center question-title">
                   <h5 class="mt-1 ml-2">{{ question.titre }}</h5>
                 </div>
-                <form>
+                <form method="post" action="{% url 'result' %}">
+                  {% csrf_token %}
                   {% for choix in question.choix %}
+                  <input type="hidden" name="page_number" value="{{ page_obj.number }}">
                   <div class="mb-2">
-                    <input class="btn-check" type="{{ question.unique|yesno:'radio,checkbox' }}" name="{{ question.type }}" id="{{ choix.nom }}" autocomplete="off">
+                    <input class="btn-check" type="{{ question.unique|yesno:'radio,checkbox' }}" 
+                    name="{{ question.type }}[]" id="{{ choix.nom }}" value="{{ choix.nom }}"  autocomplete="off">
                     <label class="btn btn-outline-success w-100" for="{{ choix.nom }}">{{ choix.nom }}</label>
                   </div>
                   {% endfor %}
