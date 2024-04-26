@@ -169,8 +169,10 @@ def result(request):
         request.session.modified = True
 
         if int(page_number) == 10:
-            result_data = compute_results(request.session['responses'])
-            request.session.flush()
+            #TODO: Uncomment the lines to compute the final results,
+            #delete the string 'uncomment this' it's just for the pipeline
+            result_data = 'uncomment this' #compute_results(request.session['responses'])
+            # request.session.flush()
             return render(request, 'results.html', {'result_data': result_data})
 
         next_page = int(page_number) + 1
@@ -178,17 +180,18 @@ def result(request):
 
     return redirect('index')
 
-def compute_results(all_responses):
-    """
-    Combine and compute the final results from the data of all pages.
+#TODO: Uncomment the lines to compute the final results
+# def compute_results(all_responses):
+#     """
+#     Combine and compute the final results from the data of all pages.
 
-    Parameters:
-    all_responses (dict): Dictionary of responses from all pages.
+#     Parameters:
+#     all_responses (dict): Dictionary of responses from all pages.
 
-    Returns:
-    dict: A dictionary with the results of the computations.
-    """
+#     Returns:
+#     dict: A dictionary with the results of the computations.
+#     """
 
-    # Fusionner les réponses ou calculer sur la base des réponses collectées
-    # Retourner un dictionnaire avec les résultats
-    return {}
+#     # Fusionner les réponses ou calculer sur la base des réponses collectées
+#     # Retourner un dictionnaire avec les résultats
+#     return {}
