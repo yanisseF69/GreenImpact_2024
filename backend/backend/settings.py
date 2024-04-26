@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'corsheaders',
+    'greenimpact',
     'rest_framework',
 ]
 
@@ -72,11 +72,6 @@ TEMPLATES = [
     },
 ]
 
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Chemin vers le dossier où vous stockez vos fichiers statiques
-]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
@@ -135,6 +130,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # Chemin vers le dossier où vous stockez vos fichiers statiques
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
