@@ -1,9 +1,10 @@
 """ Tests for views in greenimpact app. """
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
 from greenimpact.views import start, accueil, result
 
+@override_settings(DATABASES={'default': {'NAME': 'test_mif10'}})
 class TestMyViews(TestCase):
     """ 
     This class tests the views in the greenimpact app.
