@@ -223,9 +223,9 @@
 
 
 /**
- * Fonction pour générer les graphiques
- */document.addEventListener('DOMContentLoaded', function() {
-    // Fonction pour générer les données dans un format adapté à Chart.js
+ * Generate graphs
+ */
+document.addEventListener('DOMContentLoaded', function() {
     function prepareDataForCharts(categoryData) {
       var chartData = {};
       Object.keys(categoryData).forEach(function(category) {
@@ -235,7 +235,6 @@
               backgroundColor: [],
               borderColor: []
           };
-          // Définir une palette de couleurs personnalisée
           var colorPalette = [
               'rgba(52, 78, 65, 0.8)',
               'rgba(187, 213, 142, 0.8)',
@@ -247,13 +246,11 @@
               'rgba(153, 102, 255, 0.8)',
               'rgba(255, 159, 64, 0.8)',
               'rgba(219, 112, 147, 0.8)'
-              // Ajoutez autant de couleurs que nécessaire
           ];
 
-          categoryData[category].forEach(function(typage, index) {
+              categoryData[category].forEach(function(typage, index) {
               chartData[category].labels.push(typage[0]);
               chartData[category].data.push(typage[1]);
-              // Utiliser une couleur différente de la palette pour chaque typage
               chartData[category].backgroundColor.push(colorPalette[index % colorPalette.length]);
               chartData[category].borderColor.push(colorPalette[index % colorPalette.length]);
           });
@@ -295,7 +292,6 @@
       });
   }
 
-  // Faites une requête AJAX pour récupérer les données du backend
   fetch('http://localhost:8000/get_category_avg_carbon_footprint')
       .then(response => response.json())
       .then(categoryData => {
