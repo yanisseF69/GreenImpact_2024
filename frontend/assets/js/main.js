@@ -221,69 +221,80 @@
 
 })()
 
-
 /**
- * Fonction pour générer les graphiques
- */document.addEventListener('DOMContentLoaded', function() {
-    // Fonction pour générer les données dans un format adapté à Chart.js
-    function prepareDataForCharts(categoryData) {
-      var chartData = {};
-      Object.keys(categoryData).forEach(function(category) {
-          chartData[category] = {
-              labels: [],
-              data: [],
-              backgroundColor: [],
-              borderColor: []
-          };
-          categoryData[category].forEach(function(typage) {
-              chartData[category].labels.push(typage[0]);
-              chartData[category].data.push(typage[1]);
-              // Ajoutez ici la logique pour définir les couleurs de fond et de bordure
-              // Vous pouvez utiliser une logique basée sur les index ou un tableau de couleurs prédéfini
-          });
-      });
-      return chartData;
-  }
+ * Generate graphs
+ */
+document.addEventListener('DOMContentLoaded', function() {
+  function prepareDataForCharts(categoryData) {
+    var chartData = {};
+    Object.keys(categoryData).forEach(function(category) {
+        chartData[category] = {
+            labels: [],
+            data: [],
+            backgroundColor: [],
+            borderColor: []
+        };
+        var colorPalette = [
+            'rgba(52, 78, 65, 0.8)',
+            'rgba(187, 213, 142, 0.8)',
+            'rgba(120, 134, 201, 0.8)',
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(255, 206, 86, 0.8)',
+            'rgba(75, 192, 192, 0.8)',
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+            'rgba(219, 112, 147, 0.8)'
+        ];
 
-  function generateCharts(categoryData) {
-      var chartData = prepareDataForCharts(categoryData);
-      Object.keys(chartData).forEach(function(category, index) {
-          var canvasId = 'myChart' + (index + 1);
-          var ctx = document.getElementById(canvasId).getContext('2d');
-          var myChart = new Chart(ctx, {
-              type: 'doughnut',
-              data: {
-                  labels: chartData[category].labels,
-                  datasets: [{
-                      label: 'Empreinte Carbone',
-                      data: chartData[category].data,
-                      backgroundColor: chartData[category].backgroundColor,
-                      borderColor: chartData[category].borderColor,
-                      borderWidth: 1
-                  }]
-              },
-              options: {
-                  scales: {
-                      y: {
-                          display: false
-                      }
-                  },
-                  plugins: {
-                      legend: {
-                          display: true,
-                          position: 'top'
-                      }
-                  }
-              }
-          });
-      });
-  }
+            categoryData[category].forEach(function(typage, index) {
+            chartData[category].labels.push(typage[0]);
+            chartData[category].data.push(typage[1]);
+            chartData[category].backgroundColor.push(colorPalette[index % colorPalette.length]);
+            chartData[category].borderColor.push(colorPalette[index % colorPalette.length]);
+        });
+    });
+    return chartData;
+}
 
-  // Faites une requête AJAX pour récupérer les données du backend
-  fetch('http://localhost:8000/get_category_avg_carbon_footprint')
-      .then(response => response.json())
-      .then(categoryData => {
-          generateCharts(categoryData);
-      })
-      .catch(error => console.error('Erreur lors de la récupération des données:', error));
+function generateCharts(categoryData) {
+    var chartData = prepareDataForCharts(categoryData);
+    Object.keys(chartData).forEach(function(category, index) {
+        var canvasId = 'myChart' + (index + 1);
+        var ctx = document.getElementById(canvasId).getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: chartData[category].labels,
+                datasets: [{
+                    label: 'Empreinte Carbone',
+                    data: chartData[category].data,
+                    backgroundColor: chartData[category].backgroundColor,
+                    borderColor: chartData[category].borderColor,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+    });
+}
+
+fetch('http://localhost:8000/get_category_avg_carbon_footprint')
+    .then(response => response.json())
+    .then(categoryData => {
+        generateCharts(categoryData);
+    })
+    .catch(error => console.error('Erreur lors de la récupération des données:', error));
 });
