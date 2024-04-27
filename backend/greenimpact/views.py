@@ -6,8 +6,6 @@ from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
 from django.urls import reverse
 from django.http import JsonResponse
-import matplotlib.pyplot as plt
-
 
 
 
@@ -212,20 +210,3 @@ def get_category_avg_carbon_footprint(request):
             typage_avg_empreinte_carbonne = cursor.fetchall()
             category_data[category[0]] = typage_avg_empreinte_carbonne
     return JsonResponse(category_data)
-
-def generate_pie_charts(category_data):
-    """
-    Generate pie charts for each category based on the provided data and display them.
-    
-    Parameters:
-    category_data (dict): A dictionary containing category names as keys and 
-    lists of tuples containing typage names and average carbon footprints as values.
-    """
-    for category, typage_data in category_data.items():
-        typages = [typage[0] for typage in typage_data]
-        carbon_percentages = [typage[1] for typage in typage_data]
-        plt.figure(figsize=(8, 8))
-        plt.pie(carbon_percentages, labels=typages, autopct='%1.1f%%')
-        plt.title(f'Diagramme circulaire pour {category}')
-        plt.show()
-        plt.close()
