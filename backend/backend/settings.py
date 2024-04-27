@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'greenimpact',
     'rest_framework',
-    'greenimpact',
 ]
 
 MIDDLEWARE = [

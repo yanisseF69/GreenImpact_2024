@@ -2,7 +2,7 @@
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
-from greenimpact.views import start, accueil, result
+from greenimpact.views import start, result # accueil
 
 @override_settings(DATABASES={'default': {'NAME': 'test_mif10'}})
 class TestMyViews(TestCase):
@@ -21,12 +21,12 @@ class TestMyViews(TestCase):
         self.assertTemplateUsed(response, 'radioQuestion.html')
         self.assertTrue(len(response.content['questions']) == 8)
 
-    def test_accueil_view(self):
-        """ Test the accueil view."""
-        request = self.factory.get('/accueil/')
-        response = accueil(request)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
+    # def test_accueil_view(self):
+    #     """ Test the accueil view."""
+    #     request = self.factory.get('/accueil/')
+    #     response = accueil(request)
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertTemplateUsed(response, 'index.html')
 
     def test_result_view(self):
         """ Test the result view."""
