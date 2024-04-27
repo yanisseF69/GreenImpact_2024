@@ -5,6 +5,10 @@ from django.db import connection
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
 from django.urls import reverse
+from django.http import JsonResponse
+import matplotlib.pyplot as plt
+
+
 
 
 logger = logging.getLogger(__name__)
@@ -180,18 +184,48 @@ def result(request):
 
     return redirect('index')
 
-#T ODO: Uncomment the lines to compute the final results
-# def compute_results(all_responses):
-#     """
-#     Combine and compute the final results from the data of all pages.
 
-#     Parameters:
-#     all_responses (dict): Dictionary of responses from all pages.
+def get_category_avg_carbon_footprint(request):
+    """
+    Retrieve average carbon footprints for each category from the database.
+    
+    Parameters:
+    request (HttpRequest): The HTTP request object.
+    
+    Returns:
+    JsonResponse: A JSON response containing category names 
+                  as keys and average carbon footprints as values.
+    """
+    category_data = {}
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT nom_categorie FROM greenimpact_categorie')
+        categories = cursor.fetchall()
+        for category in categories:
+            cursor.execute('''
+                SELECT t.nom_typage, AVG(o.empreinte_carbonne)
+                FROM public.greenimpact_categorie c
+                INNER JOIN public.greenimpact_typage t ON c.id_categorie = t.id_categ
+                INNER JOIN public.greenimpact_option o ON t.id_typage = o.id_typ
+                WHERE c.nom_categorie = %s
+                GROUP BY t.nom_typage;
+            ''', [category[0]])
+            typage_avg_empreinte_carbonne = cursor.fetchall()
+            category_data[category[0]] = typage_avg_empreinte_carbonne
+    return JsonResponse(category_data)
 
-#     Returns:
-#     dict: A dictionary with the results of the computations.
-#     """
-
-#     # Fusionner les réponses ou calculer sur la base des réponses collectées
-#     # Retourner un dictionnaire avec les résultats
-#     return {}
+def generate_pie_charts(category_data):
+    """
+    Generate pie charts for each category based on the provided data and display them.
+    
+    Parameters:
+    category_data (dict): A dictionary containing category names as keys and 
+    lists of tuples containing typage names and average carbon footprints as values.
+    """
+    for category, typage_data in category_data.items():
+        typages = [typage[0] for typage in typage_data]
+        carbon_percentages = [typage[1] for typage in typage_data]
+        plt.figure(figsize=(8, 8))
+        plt.pie(carbon_percentages, labels=typages, autopct='%1.1f%%')
+        plt.title(f'Diagramme circulaire pour {category}')
+        plt.show()
+        plt.close()
