@@ -220,184 +220,86 @@
   new PureCounter();
 
 })()
-  /**
-   * chart
-   */
 
-  document.addEventListener('DOMContentLoaded', function() {
 
-      // Chart 1
-      var ctx1 = document.getElementById('myChart1').getContext('2d');
-      var myChart1 = new Chart(ctx1, {
-        type: 'doughnut',
-        data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-            label: 'Number of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(52, 78, 65, 0.8)', // #344E41
-              'rgba(58, 90, 64, 0.8)', // #3A5A40
-              'rgba(88, 129, 87, 0.8)', // #588157
-              'rgba(90, 159, 104, 0.8)', // #5A9F68
-              'rgba(62, 130, 65, 0.8)', // #3E8241
-              'rgba(187, 213, 142, 0.8)' // #BBD58E
-            ],
-            borderColor: [
-              'rgba(52, 78, 65, 1)', // #344E41
-              'rgba(58, 90, 64, 1)', // #3A5A40
-              'rgba(88, 129, 87, 1)', // #588157
-              'rgba(90, 159, 104, 1)', // #5A9F68
-              'rgba(62, 130, 65, 1)', // #3E8241
-              'rgba(187, 213, 142, 1)' // #BBD58E
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              display: false,
-            }
-          },
-          plugins: {
-            legend: {
-              display: true,
-              position: 'top',
-            }
-          }
-        }
-      });
-    
-      // Chart 2
-      var ctx2 = document.getElementById('myChart2').getContext('2d');
-      var myChart2 = new Chart(ctx2, {
-        type: 'doughnut',
-        data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-            label: 'Number of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(52, 78, 65, 0.8)', // #344E41
-              'rgba(58, 90, 64, 0.8)', // #3A5A40
-              'rgba(88, 129, 87, 0.8)', // #588157
-              'rgba(90, 159, 104, 0.8)', // #5A9F68
-              'rgba(62, 130, 65, 0.8)', // #3E8241
-              'rgba(187, 213, 142, 0.8)' // #BBD58E
-            ],
-            borderColor: [
-              'rgba(52, 78, 65, 1)', // #344E41
-              'rgba(58, 90, 64, 1)', // #3A5A40
-              'rgba(88, 129, 87, 1)', // #588157
-              'rgba(90, 159, 104, 1)', // #5A9F68
-              'rgba(62, 130, 65, 1)', // #3E8241
-              'rgba(187, 213, 142, 1)' // #BBD58E
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              display: false,
-            }
-          },
-          plugins: {
-            legend: {
-              display: true,
-              position: 'top',
-            }
-          }
-        }
-      });
-    
-      // Chart 3
-      var ctx3 = document.getElementById('myChart3').getContext('2d');
-      var myChart3 = new Chart(ctx3, {
-        type: 'doughnut',
-        data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-            label: 'Number of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(52, 78, 65, 0.8)', // #344E41
-              'rgba(58, 90, 64, 0.8)', // #3A5A40
-              'rgba(88, 129, 87, 0.8)', // #588157
-              'rgba(90, 159, 104, 0.8)', // #5A9F68
-              'rgba(62, 130, 65, 0.8)', // #3E8241
-              'rgba(187, 213, 142, 0.8)' // #BBD58E
-            ],
-            borderColor: [
-              'rgba(52, 78, 65, 1)', // #344E41
-              'rgba(58, 90, 64, 1)', // #3A5A40
-              'rgba(88, 129, 87, 1)', // #588157
-              'rgba(90, 159, 104, 1)', // #5A9F68
-              'rgba(62, 130, 65, 1)', // #3E8241
-              'rgba(187, 213, 142, 1)' // #BBD58E
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              display: false,
-            }
-          },
-          plugins: {
-            legend: {
-              display: true,
-              position: 'top',
-            }
-          }
-        }
-      });
-    
-      // Chart 4
-      var ctx4 = document.getElementById('myChart4').getContext('2d');
-      var myChart4 = new Chart(ctx4, {
-        type: 'doughnut',
-        data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-            label: 'Number of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(52, 78, 65, 0.8)', // #344E41
-              'rgba(58, 90, 64, 0.8)', // #3A5A40
-              'rgba(88, 129, 87, 0.8)', // #588157
-              'rgba(90, 159, 104, 0.8)', // #5A9F68
-              'rgba(62, 130, 65, 0.8)', // #3E8241
-              'rgba(187, 213, 142, 0.8)' // #BBD58E
-            ],
-            borderColor: [
-              'rgba(52, 78, 65, 1)', // #344E41
-              'rgba(58, 90, 64, 1)', // #3A5A40
-              'rgba(88, 129, 87, 1)', // #588157
-              'rgba(90, 159, 104, 1)', // #5A9F68
-              'rgba(62, 130, 65, 1)', // #3E8241
-              'rgba(187, 213, 142, 1)' // #BBD58E
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              display: false,
-            }
-          },
-          plugins: {
-            legend: {
-              display: true,
-              position: 'top',
-            }
-          }
-        }
-      });
-    });
-    
+/**
+ * Fonction pour générer les graphiques
+ */document.addEventListener('DOMContentLoaded', function() {
+    // Fonction pour générer les données dans un format adapté à Chart.js
+    function prepareDataForCharts(categoryData) {
+      var chartData = {};
+      Object.keys(categoryData).forEach(function(category) {
+          chartData[category] = {
+              labels: [],
+              data: [],
+              backgroundColor: [],
+              borderColor: []
+          };
+          // Définir une palette de couleurs personnalisée
+          var colorPalette = [
+              'rgba(52, 78, 65, 0.8)',
+              'rgba(187, 213, 142, 0.8)',
+              'rgba(120, 134, 201, 0.8)',
+              'rgba(255, 99, 132, 0.8)',
+              'rgba(54, 162, 235, 0.8)',
+              'rgba(255, 206, 86, 0.8)',
+              'rgba(75, 192, 192, 0.8)',
+              'rgba(153, 102, 255, 0.8)',
+              'rgba(255, 159, 64, 0.8)',
+              'rgba(219, 112, 147, 0.8)'
+              // Ajoutez autant de couleurs que nécessaire
+          ];
 
-  
+          categoryData[category].forEach(function(typage, index) {
+              chartData[category].labels.push(typage[0]);
+              chartData[category].data.push(typage[1]);
+              // Utiliser une couleur différente de la palette pour chaque typage
+              chartData[category].backgroundColor.push(colorPalette[index % colorPalette.length]);
+              chartData[category].borderColor.push(colorPalette[index % colorPalette.length]);
+          });
+      });
+      return chartData;
+  }
+
+  function generateCharts(categoryData) {
+      var chartData = prepareDataForCharts(categoryData);
+      Object.keys(chartData).forEach(function(category, index) {
+          var canvasId = 'myChart' + (index + 1);
+          var ctx = document.getElementById(canvasId).getContext('2d');
+          var myChart = new Chart(ctx, {
+              type: 'doughnut',
+              data: {
+                  labels: chartData[category].labels,
+                  datasets: [{
+                      label: 'Empreinte Carbone',
+                      data: chartData[category].data,
+                      backgroundColor: chartData[category].backgroundColor,
+                      borderColor: chartData[category].borderColor,
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      y: {
+                          display: false
+                      }
+                  },
+                  plugins: {
+                      legend: {
+                          display: true,
+                          position: 'top'
+                      }
+                  }
+              }
+          });
+      });
+  }
+
+  // Faites une requête AJAX pour récupérer les données du backend
+  fetch('http://localhost:8000/get_category_avg_carbon_footprint')
+      .then(response => response.json())
+      .then(categoryData => {
+          generateCharts(categoryData);
+      })
+      .catch(error => console.error('Erreur lors de la récupération des données:', error));
+});
