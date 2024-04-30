@@ -83,6 +83,7 @@ pylint:
     - sonar
     - CI/CD
     - back
+    - frontend
 
 sonarqube-check:
   stage: sonarqube
@@ -107,6 +108,7 @@ sonarqube-check:
     - sonar
     - CI/CD
     - back
+    - frontend
 
 sonarqube-vulnerability-report:
   stage: sonarqube
