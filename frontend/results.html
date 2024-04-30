@@ -55,7 +55,7 @@
           <div class="col-md-5">
             <h2>Votre empreinte carbone</h2>
             <canvas id="myResultChart" ></canvas>
-            {{ result_data | safe }}
+            <script> var results = {{ result_data|safe }} </script>
           </div>
           <!-- Gap column -->
           <div class="col-md-2"></div>

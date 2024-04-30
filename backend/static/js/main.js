@@ -359,49 +359,44 @@ function generateGlobalChartsResults(results) {
 }
 
 function generateChartsResults(result_data) {
-  var labels = Object.keys(result_data);
-  var data = Object.values(result_data);
-  var mergedBackgroundColor = [];
-  var mergedBorderColor = [];
-  var paletteIndex = 0;
-
-  var colorPalette = [
-    'rgba(52, 78, 65, 0.8)',
-    'rgba(187, 213, 142, 0.8)',
-    'rgba(120, 134, 201, 0.8)',
-    'rgba(255, 99, 132, 0.8)'
-  ];
-
-  labels.forEach(function(label) {
-    mergedBackgroundColor.push(colorPalette[paletteIndex]);
-    mergedBorderColor.push(colorPalette[paletteIndex]);
-    paletteIndex = (paletteIndex + 1) % colorPalette.length; 
-  });
-
   var canvasId = 'myResultChart';
   var ctx = document.getElementById(canvasId).getContext('2d');
-
+  var colorPalette = [
+    'rgba(52, 78, 65, 1)', // #344E41
+    'rgba(58, 90, 64, 1)', // #3A5A40
+    'rgba(88, 129, 87, 1)', // #588157
+    'rgba(90, 159, 104, 1)', // #5A9F68
+    'rgba(62, 130, 65, 1)', // #3E8241
+    'rgba(187, 213, 142, 1)', // #BBD58E
+    'rgba(75, 111, 68, 1)', // #4B6F44
+    'rgba(101, 140, 89, 1)',// #658A59
+    'rgba(130, 167, 102, 1)', // #82A766 
+    'rgba(168, 192, 120, 1)', // #A8C078 
+  ];
+  var labels = Object.keys(result_data); 
+  var data = Object.values(result_data); 
   var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Your Carbon Footprint',
-        data: data,
-        backgroundColor: mergedBackgroundColor,
-        borderColor: mergedBorderColor,
-        borderWidth: 1
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top'
-        }
+      type: 'doughnut',
+      data: {
+          labels: labels, 
+          datasets: [{
+              label: 'Empreinte Carbone',
+              data: data, 
+              backgroundColor: colorPalette.slice(0, labels.length),
+              borderColor: 'white',
+              borderWidth: 2
+          }]
+      },
+      options: {
+          plugins: {
+              legend: {
+                  display: true,
+                  position: 'top'
+              }
+          }
       }
-    }
   });
+
 }
 
 
@@ -415,12 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('/result')
-      .then(response => response.json())
-      .then(results => {
-        generateChartsResults(results);
-      })
-      .catch(error => console.error('Erreur lors de la récupération des données:', error));
+  generateChartsResults(results);
 });
 
 document.addEventListener('DOMContentLoaded', function() {
