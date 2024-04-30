@@ -32,6 +32,8 @@ default:
 
 migrations:
   stage: build 
+  except:
+    - testes
   before_script:
     - export APT_DIR=.apt
     - export APT_STATE_LISTS=$APT_DIR/lists
@@ -97,7 +99,7 @@ coverage:
     - ls -la ../covrage_report/
   artifacts:
     paths:
-      - ../coverage_report/coverage.xml 
+      - coverage_report/coverage.xml 
   only:
     - main
     - develop
