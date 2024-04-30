@@ -406,7 +406,7 @@ function generateChartsResults(result_data) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('http://localhost:8000/get_category_avg_carbon_footprint')
+  fetch('/get_category_avg_carbon_footprint')
       .then(response => response.json())
       .then(categoryData => {
           generateCharts(categoryData);
@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('http://localhost:8000/result')
+  fetch('/result')
       .then(response => response.json())
       .then(results => {
         generateChartsResults(results);
@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('http://localhost:8000/get_avg_carbon_footprint')
+  fetch('/get_avg_carbon_footprint')
       .then(response => response.json())
       .then(categoryData => {
         generateGlobalChartsResults(categoryData);

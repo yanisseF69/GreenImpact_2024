@@ -1,15 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
   <title>Green Impact</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+
   <link href="{% static 'img/logo.png' %}" rel="icon">
   <link href="{% static 'img/logo.png' %}" rel="apple-touch-icon">
-
+  
   <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -35,49 +38,56 @@
       <p>Explorer nos conseils et recommandations pour adopter un mode de vie plus durable. Chaque petit pas compte vers un avenir plus vert et sain. Découvrez comment vous pouvez contribuer à la protection de l'environnement à travers des actions simples et efficaces.</p>
     </div>
   </section>
+  <div style="margin-bottom: 50px;"></div>
   <main id="main" class="d-flex align-items-center">
-    <div class="container">
+    <div class="container justify-content-center">
       <!-- Card 1 -->
-      <div class="row align-items-center mb-3">
-        <div class="col-md-6">
-          <div class="chart-container">
-            <canvas id="myChart1"></canvas>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <h5 class="card-title">Consommation énergétique résidentielle</h5>
-          <p class="card-text">Réduire la consommation énergétique de votre foyer est un pas vers un avenir durable. Pensez à isoler votre logement, à privilégier les appareils économes en énergie, et à éteindre les appareils non utilisés.</p>
-          <p class="card-text">Considérez l'investissement dans les énergies renouvelables telles que les panneaux solaires pour réduire votre dépendance aux combustibles fossiles.</p>
+      <div class="row align-items-center mb-5">
+        <div class="col-md-6 text-center">
+          <h5 class="card-title font-weight-bold"> <b>1 - Consommation énergétique résidentielle</b></h5>
+          <p class="card-text">Installer des appareils électroménagers écoénergétiques, comme des lave-linge et des lave-vaisselle à faible consommation d'eau et d'électricité.</p>
+          <p class="card-text">Utiliser des sources d'énergie renouvelable pour chauffer et alimenter la maison, comme les pompes à chaleur, les poêles à granulés ou les systèmes solaires.</p>
+          <p class="card-text">Réduire la consommation d'électricité en utilisant des ampoules LED, des appareils économes en énergie et en éteignant les appareils en veille lorsque vous ne les utilisez pas.</p>
+
         </div>
       </div>
       <!-- Card 2 -->
-      <div class="row align-items-center mb-3">
-        <div class="col-md-6">
-          <div class="chart-container">
-            <canvas id="myChart2"></canvas>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <h5 class="card-title">Alimentation durable</h5>
-          <p class="card-text">Opter pour une alimentation plus durable en réduisant la consommation de viande et en privilégiant les produits locaux et de saison. Cela contribue à réduire les émissions de gaz à effet de serre liées au transport des aliments.</p>
-          <p class="card-text">Envisagez également de réduire le gaspillage alimentaire en planifiant vos repas et en conservant correctement vos aliments.</p>
+      <div class="row align-items-center mb-5">
+        <div class="col-md-6 text-center">
+          <h5 class="card-title font-weight-bold"><b>2 - Alimentation durable</b></h5>
+          <p class="card-text">Favoriser les aliments à faible empreinte carbone, comme les légumes verts à feuilles, les légumineuses, les céréales complètes et les fruits de saison..</p>
+          <p class="card-text">Réduire la consommation de viande rouge et de produits laitiers, qui ont une empreinte carbone plus élevée.</p>
+          <p class="card-text">Privilégier les aliments locaux et biologiques lorsque c'est possible, pour réduire l'empreinte carbone associée au transport et à la production.</p>
+
         </div>
       </div>
       <!-- Card 3 -->
-      <div class="row align-items-center mb-3">
-        <div class="col-md-6">
-          <div class="chart-container">
-            <canvas id="myChart3"></canvas>
-          </div>
+      <div class="row align-items-center mb-5">
+        <div class="col-md-6 text-center">
+          <h5 class="card-title font-weight-bold"><b>3 - Mobilité écologique</b></h5> 
+          <p class="card-text">Opter pour des modes de transport plus durables tels que la marche, le vélo, les transports en commun ou le covoiturage, surtout pour les déplacements courts.</p>
+          <p class="card-text">Éviter les modes de transport individuels à forte émission de carbone, comme les voitures thermiques et les avions, autant que possible.</p>
+          <p class="card-text">Encourager l'utilisation de véhicules électriques pour les déplacements nécessitant une voiture, car ils ont une empreinte carbone plus faible que les véhicules à essence.</p>
+
         </div>
-        <div class="col-md-6">
-          <h5 class="card-title">Mobilité écologique</h5>
-          <p class="card-text">Encourager les modes de transport écologiques comme le vélo, la marche, ou l'utilisation des transports en commun peut avoir un impact significatif sur la réduction de votre empreinte carbone.</p>
-          <p class="card-text">Pour les longues distances, envisagez le covoiturage ou l'utilisation de véhicules électriques.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="row align-items-center mb-5">
+        <div class="col-md-6 text-center">
+          <h5 class="card-title font-weight-bold"> <b>4 - Achats Durables et Responsables</b></h5>
+          <p class="card-text">Privilégier les produits durables et de haute qualité qui durent plus longtemps, plutôt que les produits bon marché et jetables.</p>
+          <p class="card-text">Choisir des vêtements fabriqués à partir de matériaux durables et écologiques, comme le coton biologique, le lin ou les fibres recyclées.</p>
+          <p class="card-text">Opter pour des meubles en bois certifié FSC ou d'autres matériaux durables, et éviter les meubles en cuir qui ont une empreinte environnementale plus élevée.</p>
         </div>
+        <div style="margin-bottom: 40px;"></div>
+        <button type="button" class="btn btn-outline-success mb-3 mt-3" id="saveButtonContainer" onclick="window.print()">
+          Imprimer <i class='bx bx-print'></i>
+        </button>
       </div>
     </div>
   </main>
+  
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
@@ -94,6 +104,7 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'js/main.js' %}"></script>
+
 </body>
 
 </html>

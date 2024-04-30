@@ -178,6 +178,11 @@ def index(request):
 
     return render(request, 'index.html')
 
+def recommendation(request):
+    """
+    Vue pour rendre la page de recommandations.
+    """
+    return render(request, 'recommendation.html')
 
 def result(request):
     """
