@@ -10,5 +10,6 @@ urlpatterns = [
     path('recommendation/', views.recommendation, name='recommendation'),
     path('get_category_avg_carbon_footprint/',
          views.get_category_avg_carbon_footprint, name='get_category_avg_carbon_footprint'),
-    path('get_avg_carbon_footprint/', views.get_avg_carbon_footprint, name='get_avg_carbon_footprint'),
+    path('get_avg_carbon_footprint/',
+         views.get_avg_carbon_footprint, name='get_avg_carbon_footprint'),
 ]

@@ -216,7 +216,6 @@ def result(request):
         if int(page_number) == 10:
             result_data = compute_results(request.session['responses'])
             request.session.flush()
-            print(result_data)
             return render(request, 'results.html', {'result_data': result_data})
 
         next_page = int(page_number) + 1
@@ -234,15 +233,32 @@ def compute_results(all_responses):
     Returns:
     dict: A dictionary with the results of the computations.
     """
+
+    # Fusionner les réponses ou calculer sur la base des réponses collectées
+    # Retourner un dictionnaire avec les résultats
     results = {}
     for reponse in all_responses:
         typage = reponse[:-2]
         id_categorie = get_category_id_from_type(typage)
-        nom_categorie = get_category_name(id_categorie)[0]
-        if nom_categorie not in results:
-            results[nom_categorie] = 0
+        if id_categorie is None:
+            #logger.error(f"Category ID not found for type: {typage}")
+            continue  # Skip this response as we can't process without category ID
+
+        nom_categorie = get_category_name(id_categorie)
+        if nom_categorie is None:
+            #logger.error(f"Category name not found for ID: {id_categorie}")
+            continue  # Skip this response as we can't process without category name
+
         for choix in all_responses[reponse]:
-            results[nom_categorie] += int(get_valeur(choix)[0])
+            if nom_categorie[0] not in results:
+                results[nom_categorie[0]] = 0
+            valeur = get_valeur(choix)
+            if valeur is None:
+                #logger.error(f"Value not found for option: {choix}")
+                continue  # Skip this choice as we can't process without its value
+
+            results[nom_categorie[0]] += round(float(valeur[0]), 2)
+
 
     return json.dumps(results)
 
