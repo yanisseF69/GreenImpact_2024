@@ -204,7 +204,6 @@ def result(request):
             #     logger.debug("Received for %s: %s", key, values)
             # logger.debug("Received for: %s", request.session['responses'])
         page_number = request.POST.get('page_number')
-        request.session.modified = True
 
         if int(page_number) == 10:
             result_data = compute_results(request.session['responses'])
@@ -216,30 +215,6 @@ def result(request):
 
     return redirect('index')
 
-def compute_results(all_responses):
-    """
-    Combine and compute the final results from the data of all pages.
-
-    Parameters:
-    all_responses (dict): Dictionary of responses from all pages.
-
-    Returns:
-    dict: A dictionary with the results of the computations.
-    """
-
-    # Fusionner les réponses ou calculer sur la base des réponses collectées
-    # Retourner un dictionnaire avec les résultats
-    results = { }
-    for reponse in all_responses:
-        typage = reponse[:-2]
-        id_categorie = get_category_id_from_type(typage)
-        nom_categorie = get_category_name(id_categorie)[0]
-        for choix in all_responses[reponse]:
-            if nom_categorie not in results:
-                results[nom_categorie] = 0
-            results[nom_categorie] += int(get_valeur(choix)[0])
-
-    return results
 
 def get_category_avg_carbon_footprint(request):
     """
