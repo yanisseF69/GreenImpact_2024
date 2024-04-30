@@ -2,6 +2,7 @@
 
 import logging
 from django.db import connection
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse
@@ -222,8 +223,32 @@ def result(request):
 
     return redirect('index')
 
+def compute_results(all_responses):
+    """
+    Combine and compute the final results from the data of all pages.
 
-def get_category_avg_carbon_footprint(request):
+    Parameters:
+    all_responses (dict): Dictionary of responses from all pages.
+
+    Returns:
+    dict: A dictionary with the results of the computations.
+    """
+
+    # Fusionner les réponses ou calculer sur la base des réponses collectées
+    # Retourner un dictionnaire avec les résultats
+    results = { }
+    for reponse in all_responses:
+        typage = reponse[:-2]
+        id_categorie = get_category_id_from_type(typage)
+        nom_categorie = get_category_name(id_categorie)[0]
+        for choix in all_responses[reponse]:
+            if nom_categorie not in results:
+                results[nom_categorie] = 0
+            results[nom_categorie] += int(get_valeur(choix)[0])
+
+    return results
+
+def get_category_avg_carbon_footprint():
     """
     Retrieve average carbon footprints for each category from the database.
     
