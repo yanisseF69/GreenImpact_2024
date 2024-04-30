@@ -83,7 +83,7 @@ pylint:
     - sonar
     - CI/CD
     - back
-    - frontend
+
 
 sonarqube-check:
   stage: sonarqube
@@ -126,6 +126,7 @@ sonarqube-vulnerability-report:
     - sonar
     - CI/CD
     - back
+    - frontend
   artifacts:
     expire_in: 1 day
     reports:
