@@ -119,7 +119,6 @@ h6 {
   height: 80px;
   transition: all 0.5s;
   z-index: 997;
-  transition: all 0.5s;
   background: rgba(1, 4, 136, 0.9);
 }
 
@@ -786,7 +785,6 @@ section {
   position: absolute;
   width: 120px;
   height: 120px;
-  animation-delay: 0s;
   animation: pulsate-btn 2s;
   animation-direction: forwards;
   animation-iteration-count: infinite;
@@ -1173,7 +1171,6 @@ section {
 }
 
 .pricing h3 {
-  font-weight: 400;
   margin: -20px -20px 20px -20px;
   padding: 20px 15px;
   font-size: 16px;
@@ -1239,9 +1236,7 @@ section {
   padding: 8px 35px 10px 35px;
   border-radius: 50px;
   color: #fff;
-  transition: none;
   font-size: 14px;
-  font-weight: 400;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   transition: 0.3s;
@@ -1612,7 +1607,6 @@ section {
   right: -2px;
   bottom: 0;
   border: 0;
-  background: none;
   font-size: 16px;
   padding: 0 20px;
   background: #1acc8d;
