@@ -95,7 +95,7 @@ coverage:
     - cd backend
     - coverage run --source='.' manage.py test --keepdb
     - rm -f ../coverage_report/coverage.xml 
-    - coverage xml -o ../covreage_report/coverage.xml 
+    - coverage xml -o ../coverage_report/coverage.xml 
     - ls -la ../coverage_report/
   artifacts:
     paths:
