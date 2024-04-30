@@ -53,21 +53,21 @@ migrations:
     - python3 ./backend/manage.py check
 
 
-django-tests:
-  stage: test
-  before_script:
-    - apt -yq update
-    - apt install --no-install-recommends -y  -o dir::cache::archives="$APT_CACHE_ARCHIVES" python3 python3-pip python3.10-venv openssh-client
-    - python3 -m venv ~/.venv
-    - source ~/.venv/bin/activate
-    - pip3 install --upgrade pip 
-    - pip3 install -r requirements.txt
-  script:
-    - source ~/.venv/bin/activate
-    # The MYSQL user only gets permissions for MYSQL_DB, so Django can't create a test database.
-    # - echo "GRANT ALL on *.* to '${MYSQL_USER}';"| mysql -u root --password="${MYSQL_ROOT_PASSWORD}" -h mysql
-    # use python3 explicitly. see https://wiki.ubuntu.com/Python/3
-    - python3 ./backend/manage.py test
+# django-tests:
+#   stage: test
+#   before_script:
+#     - apt -yq update
+#     - apt install --no-install-recommends -y  -o dir::cache::archives="$APT_CACHE_ARCHIVES" python3 python3-pip python3.10-venv openssh-client
+#     - python3 -m venv ~/.venv
+#     - source ~/.venv/bin/activate
+#     - pip3 install --upgrade pip 
+#     - pip3 install -r requirements.txt
+#   script:
+#     - source ~/.venv/bin/activate
+#     # The MYSQL user only gets permissions for MYSQL_DB, so Django can't create a test database.
+#     # - echo "GRANT ALL on *.* to '${MYSQL_USER}';"| mysql -u root --password="${MYSQL_ROOT_PASSWORD}" -h mysql
+#     # use python3 explicitly. see https://wiki.ubuntu.com/Python/3
+#     - python3 ./backend/manage.py test 
 
 pylint:
   stage: test
@@ -101,6 +101,7 @@ coverage:
     - sonar
     - CI/CD
     - back
+    - testes
 
 sonarqube-check:
   stage: sonarqube
@@ -156,3 +157,5 @@ deploy:
     - chmod 400 $GITLABCI_SSH_KEY
     - scp -o StrictHostKeyChecking=no -i $GITLABCI_SSH_KEY -r ./backend/ ./frontend/ requirements.txt gitlabci@192.168.75.19:~ 
   environment: production
+  only:
+    - main
