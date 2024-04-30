@@ -3,11 +3,11 @@
 import logging
 import json
 from django.db import connection
-from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.urls import reverse
-from django.views.decorators.http import require_GET, require_POST
+from django.http import JsonResponse
+
 
 
 
@@ -148,7 +148,6 @@ def get_valeur(option_name):
         )
         return cursor.fetchone()
 
-@require_GET
 def start(request):
     """
     The view function for the start page that renders the first 10 paginated questions.
@@ -162,25 +161,16 @@ def start(request):
     page_number = request.GET.get('page', 1)
     questions_per_page = 1
     total_questions_to_display = 10
+
     question_info = get_question_info(total_questions_to_display)
-
     paginator = Paginator(question_info, questions_per_page)
-
-    try:
-        page_obj = paginator.page(page_number)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        page_obj = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range, deliver last page of results.
-        page_obj = paginator.page(paginator.num_pages)
-
+    page_obj = paginator.get_page(page_number)
     page_questions = prepare_questions(page_obj.object_list)
-    context = {'questions': page_questions, 'page_obj': page_obj}
 
+    context = {'questions': page_questions, 'page_obj': page_obj}
     return render(request, 'questions.html', context)
 
-@require_GET
+
 def index(request):
     """
     This function is just used to render the index page on the "/" route.
@@ -194,7 +184,6 @@ def recommendation(request):
     """
     return render(request, 'recommendation.html')
 
-@require_POST
 def result(request):
     """
     Process and store user responses on each page of the questionnaire, 
@@ -222,7 +211,6 @@ def result(request):
             #     logger.debug("Received for %s: %s", key, values)
             # logger.debug("Received for: %s", request.session['responses'])
         page_number = request.POST.get('page_number')
-        request.session.modified = True
         request.session.modified = True
 
         if int(page_number) == 10:
@@ -274,7 +262,7 @@ def compute_results(all_responses):
 
     return json.dumps(results)
 
-def get_category_avg_carbon_footprint():
+def get_category_avg_carbon_footprint(request):
     """
     Retrieve average carbon footprints for each category from the database.
     
@@ -302,7 +290,7 @@ def get_category_avg_carbon_footprint():
             category_data[category[0]] = typage_avg_empreinte_carbonne
     return JsonResponse(category_data)
 
-def get_avg_carbon_footprint():
+def get_avg_carbon_footprint(request):
     """
     Retrieve average carbon footprints for each category from the database.
     
