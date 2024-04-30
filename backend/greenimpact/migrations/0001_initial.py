@@ -3,9 +3,18 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-
+"""
+Migration file for initializing database schema.
+"""
 class Migration(migrations.Migration):
+    """
+    Initial migration class for creating database schema.
 
+    This migration initializes the database schema with the following operations:
+    - Creation of the 'Categorie' model with fields 'id' and 'nom_categorie'.
+    - Creation of the 'Question' model with fields 'id', 'titre', and 'categorie'.
+    - Creation of the 'Option' model with fields 'id', 'texte_option', 'valeur_carbone', and 'question'.
+    """
     initial = True
 
     dependencies = [
@@ -23,7 +32,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Question',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, 
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
                     serialize=False, verbose_name='ID')),
                 ('titre', models.CharField(max_length=100)),
                 ('categorie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
