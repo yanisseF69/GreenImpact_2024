@@ -18,6 +18,7 @@ DATABASES = {
         'PASSWORD': "admin",
         'HOST': '192.168.75.19',
         'PORT': '',
+        'MIGRATE': False,
     },
     'test': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -30,13 +31,6 @@ DATABASES = {
     }
 }
 
-MIGRATION_MODULES = {
-    'greenimpact': 'greenimpact.test_migrations',
-}
-
-
-# Test runner
-TEST_RUNNER = 'tests.test_runner.ManagedModelTestRunner'
 
 # Test client settings
 TEST_REQUEST_DEFAULT_FORMAT = 'json'
