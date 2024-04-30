@@ -184,6 +184,44 @@ def index(request):
 
     return render(request, 'index.html')
 
+def compute_results(all_responses):
+    """
+    Combine and compute the final results from the data of all pages.
+
+    Parameters:
+    all_responses (dict): Dictionary of responses from all pages.
+
+    Returns:
+    dict: A dictionary with the results of the computations.
+    """
+
+    # Fusionner les réponses ou calculer sur la base des réponses collectées
+    # Retourner un dictionnaire avec les résultats
+    results = {}
+    for reponse in all_responses:
+        typage = reponse[:-2]
+        id_categorie = get_category_id_from_type(typage)
+        if id_categorie is None:
+            #logger.error(f"Category ID not found for type: {typage}")
+            continue  # Skip this response as we can't process without category ID
+
+        nom_categorie = get_category_name(id_categorie)
+        if nom_categorie is None:
+            #logger.error(f"Category name not found for ID: {id_categorie}")
+            continue  # Skip this response as we can't process without category name
+
+        for choix in all_responses[reponse]:
+            if nom_categorie[0] not in results:
+                results[nom_categorie[0]] = 0
+            valeur = get_valeur(choix)
+            if valeur is None:
+                #logger.error(f"Value not found for option: {choix}")
+                continue  # Skip this choice as we can't process without its value
+
+            results[nom_categorie[0]] += int(valeur[0])
+
+    return results
+
 @require_POST
 def result(request):
     """
@@ -223,44 +261,6 @@ def result(request):
         return redirect(f'{reverse("start")}?page={next_page}')
 
     return redirect('index')
-
-def compute_results(all_responses):
-    """
-    Combine and compute the final results from the data of all pages.
-
-    Parameters:
-    all_responses (dict): Dictionary of responses from all pages.
-
-    Returns:
-    dict: A dictionary with the results of the computations.
-    """
-
-    # Fusionner les réponses ou calculer sur la base des réponses collectées
-    # Retourner un dictionnaire avec les résultats
-    results = {}
-    for reponse in all_responses:
-        typage = reponse[:-2]
-        id_categorie = get_category_id_from_type(typage)
-        if id_categorie is None:
-            #logger.error(f"Category ID not found for type: {typage}")
-            continue  # Skip this response as we can't process without category ID
-
-        nom_categorie = get_category_name(id_categorie)
-        if nom_categorie is None:
-            #logger.error(f"Category name not found for ID: {id_categorie}")
-            continue  # Skip this response as we can't process without category name
-
-        for choix in all_responses[reponse]:
-            if nom_categorie[0] not in results:
-                results[nom_categorie[0]] = 0
-            valeur = get_valeur(choix)
-            if valeur is None:
-                #logger.error(f"Value not found for option: {choix}")
-                continue  # Skip this choice as we can't process without its value
-
-            results[nom_categorie[0]] += int(valeur[0])
-
-    return results
 
 @require_GET
 def get_category_avg_carbon_footprint(request):# pylint: disable=unused-argument
