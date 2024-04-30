@@ -84,6 +84,24 @@ pylint:
     - CI/CD
     - back
 
+coverage:
+  stage: test
+  script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - cd backend
+    - coverage run --source='.' manage.py test --keepdb
+    - coverage xml -o coverage.xml 
+  artifacts:
+    paths:
+      - coverage.xml 
+  only:
+    - main
+    - develop
+    - sonar
+    - CI/CD
+    - back
+
 sonarqube-check:
   stage: sonarqube
   image: 
@@ -97,16 +115,15 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script: 
-    - sonar-scanner -X -Dproject.settings=sonar/sonar-project.properties
+    - sonar-scanner -X -Dproject.settings=sonar/sonar-project.properties -Dsonar.coverageReportPaths=coverage.xml  # Spécifier le chemin du rapport de couverture de code pour SonarQube
   allow_failure: true
   only:
-    - merge_requests
-    - master
     - main
     - develop
     - sonar
     - CI/CD
     - back
+
 
 sonarqube-vulnerability-report:
   stage: sonarqube
