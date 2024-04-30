@@ -75,8 +75,8 @@ pylint:
   script:
     - pip install --upgrade pip
     - pip install -r requirements.txt
-    - pylint ./backend/backend/
-    - pylint ./backend/greenimpact/
+    - pylint ./backend/backend/**/*.py
+    - pylint ./backend/greenimpact/**/*.py
   only:
     - merge_requests
     - main
