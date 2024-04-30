@@ -7,7 +7,9 @@ urlpatterns = [
     path("start/", views.start, name="start"),
     path("", views.index, name="index"),
     path('result/', views.result, name='result'),
-    path("recommandations/", views.recommendations, name="recommandations"),
+    path('recommendation/', views.recommendation, name='recommendation'),
     path('get_category_avg_carbon_footprint/',
          views.get_category_avg_carbon_footprint, name='get_category_avg_carbon_footprint'),
-    ]
+    path('get_avg_carbon_footprint/',
+         views.get_avg_carbon_footprint, name='get_avg_carbon_footprint'),
+]

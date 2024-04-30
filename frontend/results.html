@@ -54,14 +54,15 @@
           <!-- Chart 1 -->
           <div class="col-md-5">
             <h2>Votre empreinte carbone</h2>
-            <canvas id="myChart1"></canvas>
+            <canvas id="myResultChart" ></canvas>
+            <script> var results = {{ result_data|safe }} </script>
           </div>
           <!-- Gap column -->
           <div class="col-md-2"></div>
           <!-- Chart 2 -->
           <div class="col-md-5">
             <h2>Statistiques globales</h2>
-            <canvas id="myChart2"></canvas>
+            <canvas id="myGlobalResultChart"></canvas>
           </div>
         </div>
 
@@ -70,27 +71,15 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h2 class="card-title text-center">Explication</h2>
-                <p class="text-muted text-justify">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem facilisis egestas varius consequat
-                  massa quis. Nisl orci sed elementum lobortis viverra egestas. Quam sed elementum augue sed semper.
-                  Eget convallis pellentesque tortor, urna. Venenatis tincidunt duis nunc, aliquam augue velit. At
-                  aliquam mauris mollis fames viverra volutpat cursus et pharetra. Non vulputate placerat in eget
-                  elementum. Sagittis eget consectetur du faucibus. Vestibulum nunc eu neque sed eget tincidunt platea.
-                  Velit gravida adipiscing et.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem facilisis egestas varius consequat
-                  massa quis. Nisl orci sed elementum lobortis viverra egestas. Quam sed elementum augue sed semper.
-                  Eget convallis pellentesque tortor, urna. Venenatis tincidunt duis nunc, aliquam augue velit. At
-                  aliquam mauris mollis fames viverra volutpat cursus et pharetra. Non vulputate placerat in eget
-                  elementum. Sagittis eget consectetur du faucibus. Vestibulum nunc eu neque sed eget tincidunt platea.
-                  Velit gravida adipiscing et.
+                <p class="text-muted text-justify text-center">
+                 Visitez nos recommandations pour vous aider à réduire votre empreinte carbone.
                 </p>
                 <div class="text-center">
                   <!-- Recommendations Button -->
                   <button type="button" class="btn btn-success mb-2">
-                    <a href="/recommandations">
+                    <a href="{% url 'recommendation' %}" class="btn btn-success mb-2">
                       <i class='bx bx-bulb'></i> Nos recommandations
-                    </a>
+                    </a>                    
                   </button>
 
                 </div>
@@ -103,9 +92,9 @@
           <div class="col-lg-12">
             <div class="text-center">
               <!-- Save Button -->
-              <!-- <button type="button" class="btn btn-outline-success mb-3 mt-3">
-                Enregistrer <i class='bx bx-save'></i>
-              </button> -->
+              <button type="button" class="btn btn-outline-success mb-3 mt-3" id="saveButtonContainer" onclick="window.print()">
+                Imprimer <i class='bx bx-print'></i>
+              </button>
             </div>
 
           </div>

@@ -221,6 +221,9 @@
 
 })()
 
+/**
+ * Generate graphs
+ */
 function prepareDataForCharts(categoryData) {
   var chartData = {};
   Object.keys(categoryData).forEach(function(category) {
@@ -256,6 +259,7 @@ function prepareDataForCharts(categoryData) {
 /**
  * Generate graphs
  */
+
 function generateCharts(categoryData) {
   var chartData = prepareDataForCharts(categoryData);
   Object.keys(chartData).forEach(function(category, index) {
@@ -290,11 +294,136 @@ function generateCharts(categoryData) {
   });
 }
 
+function generateGlobalChartsResults(results) {
+  var chartData = prepareDataForCharts(results);
+  var canvasId = 'myGlobalResultChart'; 
+  var ctx = document.getElementById(canvasId).getContext('2d');
+  
+  var mergedLabels = [];
+  var mergedData = [];
+  var mergedBackgroundColor = [];
+  var mergedBorderColor = [];
+
+  var colorPalette = [
+    'rgba(52, 78, 65, 1)', // #344E41
+    'rgba(58, 90, 64, 1)', // #3A5A40
+    'rgba(88, 129, 87, 1)', // #588157
+    'rgba(90, 159, 104, 1)', // #5A9F68
+    'rgba(62, 130, 65, 1)', // #3E8241
+    'rgba(187, 213, 142, 1)', // #BBD58E
+    'rgba(75, 111, 68, 1)', // #4B6F44
+    'rgba(101, 140, 89, 1)',// #658A59
+    'rgba(130, 167, 102, 1)', // #82A766 
+    'rgba(168, 192, 120, 1)', // #A8C078 
+  ];
+
+  var paletteIndex = 0;
+
+  Object.keys(chartData).forEach(function(category) {
+    mergedLabels = mergedLabels.concat(chartData[category].labels);
+    mergedData = mergedData.concat(chartData[category].data);
+
+    var categoryBackgroundColor = [];
+    var categoryBorderColor = [];
+
+    chartData[category].labels.forEach(function(label, index) {
+      categoryBackgroundColor.push(colorPalette[paletteIndex]);
+      categoryBorderColor.push(colorPalette[paletteIndex]);
+      paletteIndex = (paletteIndex + 1) % colorPalette.length; 
+    });
+
+    mergedBackgroundColor = mergedBackgroundColor.concat(categoryBackgroundColor);
+    mergedBorderColor = mergedBorderColor.concat(categoryBorderColor);
+  });
+
+  var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: mergedLabels,
+      datasets: [{
+        label: 'Votre Empreinte Carbone',
+        data: mergedData,
+        backgroundColor: mergedBackgroundColor,
+        borderColor: mergedBorderColor,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          display: false
+        }
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        }
+      }
+    }
+  });
+}
+
+function generateChartsResults(result_data) {
+  var canvasId = 'myResultChart';
+  var ctx = document.getElementById(canvasId).getContext('2d');
+  var colorPalette = [
+    'rgba(52, 78, 65, 1)', // #344E41
+    'rgba(58, 90, 64, 1)', // #3A5A40
+    'rgba(88, 129, 87, 1)', // #588157
+    'rgba(90, 159, 104, 1)', // #5A9F68
+    'rgba(62, 130, 65, 1)', // #3E8241
+    'rgba(187, 213, 142, 1)', // #BBD58E
+    'rgba(75, 111, 68, 1)', // #4B6F44
+    'rgba(101, 140, 89, 1)',// #658A59
+    'rgba(130, 167, 102, 1)', // #82A766 
+    'rgba(168, 192, 120, 1)', // #A8C078 
+  ];
+  var labels = Object.keys(result_data); 
+  var data = Object.values(result_data); 
+  var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+          labels: labels, 
+          datasets: [{
+              label: 'Empreinte Carbone',
+              data: data, 
+              backgroundColor: colorPalette.slice(0, labels.length),
+              borderColor: colorPalette.slice(0, labels.length),
+              borderWidth: 2
+          }]
+      },
+      options: {
+          plugins: {
+              legend: {
+                  display: true,
+                  position: 'top'
+              }
+          }
+      }
+  });
+
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('http://localhost:8000/get_category_avg_carbon_footprint')
+  fetch('/get_category_avg_carbon_footprint')
       .then(response => response.json())
       .then(categoryData => {
           generateCharts(categoryData);
+      })
+      .catch(error => console.error('Erreur lors de la récupération des données:', error));
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  generateChartsResults(results);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/get_avg_carbon_footprint')
+      .then(response => response.json())
+      .then(categoryData => {
+        generateGlobalChartsResults(categoryData);
       })
       .catch(error => console.error('Erreur lors de la récupération des données:', error));
 });
