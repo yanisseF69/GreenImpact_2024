@@ -249,7 +249,7 @@ def compute_results(all_responses):
     return results
 
 @require_GET
-def get_category_avg_carbon_footprint():
+def get_category_avg_carbon_footprint(request):# pylint: disable=unused-argument
     """
     Retrieve average carbon footprints for each category from the database.
     
