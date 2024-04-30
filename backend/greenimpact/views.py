@@ -212,6 +212,7 @@ def result(request):
             #     logger.debug("Received for %s: %s", key, values)
             # logger.debug("Received for: %s", request.session['responses'])
         page_number = request.POST.get('page_number')
+        request.session.modified = True
 
         if int(page_number) == 10:
             result_data = compute_results(request.session['responses'])
@@ -289,3 +290,13 @@ def get_category_avg_carbon_footprint(request):# pylint: disable=unused-argument
             typage_avg_empreinte_carbonne = cursor.fetchall()
             category_data[category[0]] = typage_avg_empreinte_carbonne
     return JsonResponse(category_data)
+
+
+@require_GET
+def recommendations(request):
+    """
+    This function is just used to render the recommandations page on the
+    "recommandations" route.
+    """
+
+    return render(request, 'recommendation.html')
