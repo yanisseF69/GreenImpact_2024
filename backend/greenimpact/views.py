@@ -3,9 +3,9 @@
 import logging
 from django.db import connection
 from django.shortcuts import redirect, render
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse
-
+from django.views.decorators.http import require_GET, require_POST
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -143,7 +143,7 @@ def get_valeur(option_name):
                WHERE texte_option = %s;''', [option_name]
         )
         return cursor.fetchone()
-
+@require_GET
 def start(request):
     """
     The view function for the start page that renders the first 10 paginated questions.
@@ -157,16 +157,25 @@ def start(request):
     page_number = request.GET.get('page', 1)
     questions_per_page = 1
     total_questions_to_display = 10
-
     question_info = get_question_info(total_questions_to_display)
-    paginator = Paginator(question_info, questions_per_page)
-    page_obj = paginator.get_page(page_number)
-    page_questions = prepare_questions(page_obj.object_list)
 
+    paginator = Paginator(question_info, questions_per_page)
+
+    try:
+        page_obj = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results.
+        page_obj = paginator.page(paginator.num_pages)
+
+    page_questions = prepare_questions(page_obj.object_list)
     context = {'questions': page_questions, 'page_obj': page_obj}
+
     return render(request, 'questions.html', context)
 
-
+@require_GET
 def index(request):
     """
     This function is just used to render the index page on the "/" route.
@@ -174,7 +183,7 @@ def index(request):
 
     return render(request, 'index.html')
 
-
+@require_POST
 def result(request):
     """
     Process and store user responses on each page of the questionnaire, 
