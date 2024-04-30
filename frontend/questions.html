@@ -47,9 +47,10 @@
         <div class="col-12 d-flex justify-content-center ">
           <div class="pagination p1">
             {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}"><li><</li></a>
+                <ul><a href="?page={{ page_obj.previous_page_number }}"><li><i class='bx bx-chevron-left'></i></li></a></ul>
             {% endif %}
-            
+          
+            <ul>
             {% for num in page_obj.paginator.page_range %}
                 {% if page_obj.number == num %}
                     <a class="is-active" href="?page={{ num }}"><li>{{ num }}</li></a>
@@ -57,11 +58,12 @@
                     <a href="?page={{ num }}"><li>{{ num }}</li></a>
                 {% endif %}
             {% endfor %}
-            
+            </ul>
+          
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}"><li>></li></a>
+                <ul><a href="?page={{ page_obj.next_page_number }}"><li><i class='bx bx-chevron-right'></i></li></a></ul>
             {% endif %}
-          </div>
+          </div>          
         </div>
         <div class="col-md-8 col-lg-6">
           {% for question in questions %}

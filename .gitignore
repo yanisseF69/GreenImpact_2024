@@ -28,8 +28,7 @@ build/
 
 ### Python ###
 **/*.pyc
-backend/greenimpact/migrations/**
-!backend/greenimpact/migrations/__init__.py
+**/__pycache__/
 
 ### Sonar ###
 .scannerwork/

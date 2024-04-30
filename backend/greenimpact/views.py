@@ -211,7 +211,6 @@ def result(request):
             #     logger.debug("Received for %s: %s", key, values)
             # logger.debug("Received for: %s", request.session['responses'])
         page_number = request.POST.get('page_number')
-        request.session.modified = True
 
         if int(page_number) == 10:
             result_data = compute_results(request.session['responses'])
@@ -223,27 +222,31 @@ def result(request):
 
     return redirect('index')
 
-def compute_results(all_responses):
-    """
-    Combine and compute the final results from the data of all pages.
 
+def get_category_avg_carbon_footprint(request):
+    """
+    Retrieve average carbon footprints for each category from the database.
+    
     Parameters:
-    all_responses (dict): Dictionary of responses from all pages.
-
+    request (HttpRequest): The HTTP request object.
+    
     Returns:
-    dict: A dictionary with the results of the computations.
+    JsonResponse: A JSON response containing category names 
+                  as keys and average carbon footprints as values.
     """
-
-    # Fusionner les réponses ou calculer sur la base des réponses collectées
-    # Retourner un dictionnaire avec les résultats
-    results = { }
-    for reponse in all_responses:
-        typage = reponse[:-2]
-        id_categorie = get_category_id_from_type(typage)
-        nom_categorie = get_category_name(id_categorie)[0]
-        for choix in all_responses[reponse]:
-            if nom_categorie not in results:
-                results[nom_categorie] = 0
-            results[nom_categorie] += int(get_valeur(choix)[0])
-
-    return results
+    category_data = {}
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT nom_categorie FROM greenimpact_categorie')
+        categories = cursor.fetchall()
+        for category in categories:
+            cursor.execute('''
+                SELECT t.nom_typage, AVG(o.empreinte_carbonne)
+                FROM public.greenimpact_categorie c
+                INNER JOIN public.greenimpact_typage t ON c.id_categorie = t.id_categ
+                INNER JOIN public.greenimpact_option o ON t.id_typage = o.id_typ
+                WHERE c.nom_categorie = %s
+                GROUP BY t.nom_typage;
+            ''', [category[0]])
+            typage_avg_empreinte_carbonne = cursor.fetchall()
+            category_data[category[0]] = typage_avg_empreinte_carbonne
+    return JsonResponse(category_data)
