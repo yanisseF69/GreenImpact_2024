@@ -118,7 +118,7 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script: 
-    - sonar-scanner -X -Dproject.settings=sonar/sonar-project.properties -Dsonar.coverageReportPaths=coverage.xml  # Spécifier le chemin du rapport de couverture de code pour SonarQube
+    - sonar-scanner -X -Dproject.settings=sonar/sonar-project.properties -Dsonar.coverageReportPaths=coverage_report/coverage.xml
   allow_failure: true
   only:
     - main
