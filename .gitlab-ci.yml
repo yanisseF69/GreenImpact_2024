@@ -94,6 +94,7 @@ coverage:
     - coverage run --source='.' manage.py test --keepdb
     - rm -f ../covrage_report/coverage.xml 
     - coverage xml -o ../covrage_report/coverage.xml 
+    - ls -la ../covrage_report/
   artifacts:
     paths:
       - ../coverage_report/coverage.xml 
