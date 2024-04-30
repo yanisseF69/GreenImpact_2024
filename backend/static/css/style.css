@@ -197,7 +197,6 @@ h6 {
 .navbar>ul>li>a:before {
   content: "";
   position: absolute;
-  width: 0;
   height: 2px;
   bottom: 3px;
   left: 30px;
@@ -610,7 +609,6 @@ section {
 }
 
 .section-title p {
-  margin: 0;
   margin: 0;
   font-size: 36px;
   font-weight: 700;
