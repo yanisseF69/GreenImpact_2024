@@ -121,7 +121,7 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script: 
-    - sonar-scanner -X -Dproject.settings=sonar/sonar-project.properties -Dsonar.coverageReportPaths=coverage_report/coverage.xml
+    - sonar-scanner -X -Dproject.settings=sonar/sonar-project.properties
   allow_failure: true
   only:
     - main
