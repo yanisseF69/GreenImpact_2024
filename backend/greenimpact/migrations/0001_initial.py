@@ -15,25 +15,30 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Categorie',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                     serialize=False, verbose_name='ID')),
                 ('nom_categorie', models.CharField(max_length=20, unique=True)),
             ],
         ),
         migrations.CreateModel(
             name='Question',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, 
+                    serialize=False, verbose_name='ID')),
                 ('titre', models.CharField(max_length=100)),
-                ('categorie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='question', to='greenimpact.categorie')),
+                ('categorie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                     related_name='question', to='greenimpact.categorie')),
             ],
         ),
         migrations.CreateModel(
             name='Option',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                     serialize=False, verbose_name='ID')),
                 ('texte_option', models.CharField(max_length=15)),
                 ('valeur_carbone', models.FloatField()),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reponse', to='greenimpact.question')),
+                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                     related_name='reponse', to='greenimpact.question')),
             ],
         ),
     ]
