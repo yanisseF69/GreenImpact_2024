@@ -35,3 +35,14 @@ sudo ./sonar/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
 ```
 
 Sonar est appele automatiquement lors de chaque push sur le serveur git.
+
+### test
+Des tests ont été déployé sur le projet, vous pouvez les lancer avec :
+```bash
+python3 manager test
+```
+En plus de cela le requirements.txt vous install un outils de coverage :
+```py
+coverage run --source='.' manage.py test --keepdb
+coverage xml -o ../coverage_report/coverage.xml 
+```
