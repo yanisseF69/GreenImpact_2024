@@ -92,7 +92,7 @@ coverage:
     - pip install -r requirements.txt
     - cd backend
     - coverage run --source='.' manage.py test --keepdb
-    - rm ../covrage_report/coverage.xml 
+    - rm -f ../covrage_report/coverage.xml 
     - coverage xml -o ../covrage_report/coverage.xml 
   artifacts:
     paths:
