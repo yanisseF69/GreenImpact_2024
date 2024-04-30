@@ -92,7 +92,8 @@ coverage:
     - pip install -r requirements.txt
     - cd backend
     - coverage run --source='.' manage.py test --keepdb
-    - coverage xml -o coverage.xml 
+    - rm ../covrage_report/coverage.xml 
+    - coverage xml -o ../covrage_report/coverage.xml 
   artifacts:
     paths:
       - coverage.xml 
@@ -125,6 +126,7 @@ sonarqube-check:
     - sonar
     - CI/CD
     - back
+    - testes
 
 
 sonarqube-vulnerability-report:
@@ -143,6 +145,7 @@ sonarqube-vulnerability-report:
     - sonar
     - CI/CD
     - back
+    - testes
   artifacts:
     expire_in: 1 day
     reports:
