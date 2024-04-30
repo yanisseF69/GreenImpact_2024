@@ -1,6 +1,5 @@
 """ Settings for running tests. """
 from django.conf import settings
-from django.test import override_settings
 
 MIDDLEWARE = settings.MIDDLEWARE
 
@@ -14,19 +13,29 @@ TEST = {'NAME': 'test_database'}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'test_mif10',
+        'NAME': 'mif10',
         'USER': "admin",
         'PASSWORD': "admin",
         'HOST': '192.168.75.19',
         'PORT': '',
-        'TEST': {
-            'NAME': 'test_mif10',
-        }
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test_mif10',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': '192.168.75.19',
+        'PORT': '',
     }
 }
 
+MIGRATION_MODULES = {
+    'greenimpact': 'greenimpact.test_migrations',
+}
+
+
 # Test runner
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+TEST_RUNNER = 'tests.test_runner.ManagedModelTestRunner'
 
 # Test client settings
 TEST_REQUEST_DEFAULT_FORMAT = 'json'

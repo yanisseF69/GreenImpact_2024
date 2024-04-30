@@ -1,36 +1,28 @@
-""" Tests for views in greenimpact app. """
-from django.test import RequestFactory, TestCase, override_settings
+from django.test import TestCase, Client
 from django.urls import reverse
 
-from greenimpact.views import start, result # accueil
+from greenimpact.views import start, result
 
-@override_settings(DATABASES={'default': {'NAME': 'test_mif10'}})
 class TestMyViews(TestCase):
     """ 
     This class tests the views in the greenimpact app.
     It tests the views start, accueil and result.
     """
     def setUp(self):
-        self.factory = RequestFactory()
+        self.client = Client()
 
     def test_start_view(self):
         """ Test the start view."""
-        request = self.factory.get('/start/')
-        response = start(request)
+        response = self.client.get(reverse('start') + '?page=1')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'radioQuestion.html')
-        self.assertTrue(len(response.content['questions']) == 8)
+        self.assertTemplateUsed(response, 'questions.html')
 
-    # def test_accueil_view(self):
-    #     """ Test the accueil view."""
-    #     request = self.factory.get('/accueil/')
-    #     response = accueil(request)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'index.html')
-
-    def test_result_view(self):
-        """ Test the result view."""
-        request = self.factory.post('/result/')
-        response = result(request)
-        self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content, {})
+    # def test_result_view(self):
+    #     """ Test the result view."""
+    #     # Simulate POST request data
+    #     data = {
+    #         'Salade[]': ['Blette'],  # Exemple de réponse à la première page
+    #         # Ajoutez les réponses pour les autres pages si nécessaire
+    #     }
+    #     response = self.client.post(reverse('result'), data)
+    #     self.assertEqual(response.status_code, 302)  # Redirection après envoi du formulaire

@@ -166,7 +166,6 @@ def result(request):
                 logger.debug("Received for %s: %s", key, values)
             logger.debug("Received for: %s", request.session['responses'])
         page_number = request.POST.get('page_number')
-        request.session.modified = True
 
         if int(page_number) == 10:
             #T ODO: Uncomment the lines to compute the final results,
@@ -179,6 +178,7 @@ def result(request):
         return redirect(f'{reverse("start")}?page={next_page}')
 
     return redirect('index')
+
 
 #T ODO: Uncomment the lines to compute the final results
 # def compute_results(all_responses):
