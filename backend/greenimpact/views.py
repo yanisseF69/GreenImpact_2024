@@ -65,6 +65,24 @@ def get_category_name(id_categ):
         )
         return cursor.fetchone()
 
+def get_category_id_from_type(type_name):
+    """
+    Get the ID of the category using the type name.
+
+    Parameters:
+    type_name (str): The name of the type.
+
+    Returns:
+    str: The ID of the type's category.
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(
+            '''SELECT id_categ
+               FROM greenimpact_typage 
+               WHERE nom_typage = %s''', [type_name]
+        )
+        return cursor.fetchone()
+
 def get_options(id_typage):
     """
     Retrieve the options for a question using its type ID.
@@ -107,6 +125,24 @@ def prepare_questions(question_info):
             "unique": quest[1] == 1,
         })
     return questions
+
+def get_valeur(option_name):
+    """
+    Retrieve the value of an option using its name.
+
+    Parameters:
+    option_name (str): The name of the question type.
+
+    Returns:
+    list: A list of tuples containing the options' text, carbon footprint, and ID.
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(
+            '''SELECT empreinte_carbonne
+               FROM greenimpact_option
+               WHERE texte_option = %s;''', [option_name]
+        )
+        return cursor.fetchone()
 
 def start(request):
     """
@@ -163,15 +199,13 @@ def result(request):
             if key.endswith('[]'):
                 values = request.POST.getlist(key)
                 request.session['responses'][key] = values
-                logger.debug("Received for %s: %s", key, values)
-            logger.debug("Received for: %s", request.session['responses'])
+            #     logger.debug("Received for %s: %s", key, values)
+            # logger.debug("Received for: %s", request.session['responses'])
         page_number = request.POST.get('page_number')
 
         if int(page_number) == 10:
-            #T ODO: Uncomment the lines to compute the final results,
-            #delete the string 'uncomment this' it's just for the pipeline
-            result_data = 'uncomment this' #compute_results(request.session['responses'])
-            # request.session.flush()
+            result_data = compute_results(request.session['responses'])
+            request.session.flush()
             return render(request, 'results.html', {'result_data': result_data})
 
         next_page = int(page_number) + 1
@@ -179,19 +213,27 @@ def result(request):
 
     return redirect('index')
 
+def compute_results(all_responses):
+    """
+    Combine and compute the final results from the data of all pages.
 
-#T ODO: Uncomment the lines to compute the final results
-# def compute_results(all_responses):
-#     """
-#     Combine and compute the final results from the data of all pages.
+    Parameters:
+    all_responses (dict): Dictionary of responses from all pages.
 
-#     Parameters:
-#     all_responses (dict): Dictionary of responses from all pages.
+    Returns:
+    dict: A dictionary with the results of the computations.
+    """
 
-#     Returns:
-#     dict: A dictionary with the results of the computations.
-#     """
+    # Fusionner les réponses ou calculer sur la base des réponses collectées
+    # Retourner un dictionnaire avec les résultats
+    results = { }
+    for reponse in all_responses:
+        typage = reponse[:-2]
+        id_categorie = get_category_id_from_type(typage)
+        nom_categorie = get_category_name(id_categorie)[0]
+        for choix in all_responses[reponse]:
+            if nom_categorie not in results:
+                results[nom_categorie] = 0
+            results[nom_categorie] += int(get_valeur(choix)[0])
 
-#     # Fusionner les réponses ou calculer sur la base des réponses collectées
-#     # Retourner un dictionnaire avec les résultats
-#     return {}
+    return results
