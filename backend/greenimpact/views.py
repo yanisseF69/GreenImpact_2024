@@ -1,11 +1,13 @@
 ''' This file contains the views for the GreenImpact app. '''
 
 import logging
+import json
 from django.db import connection
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
 from django.urls import reverse
 from django.http import JsonResponse
+
 
 
 
@@ -204,17 +206,40 @@ def result(request):
             #     logger.debug("Received for %s: %s", key, values)
             # logger.debug("Received for: %s", request.session['responses'])
         page_number = request.POST.get('page_number')
+        request.session.modified = True
 
         if int(page_number) == 10:
             result_data = compute_results(request.session['responses'])
             request.session.flush()
+            print(result_data)
             return render(request, 'results.html', {'result_data': result_data})
 
         next_page = int(page_number) + 1
         return redirect(f'{reverse("start")}?page={next_page}')
-
     return redirect('index')
 
+
+def compute_results(all_responses):
+    """
+    Combine and compute the final results from the data of all pages.
+
+    Parameters:
+    all_responses (dict): Dictionary of responses from all pages.
+
+    Returns:
+    dict: A dictionary with the results of the computations.
+    """
+    results = {}
+    for reponse in all_responses:
+        typage = reponse[:-2]
+        id_categorie = get_category_id_from_type(typage)
+        nom_categorie = get_category_name(id_categorie)[0]
+        if nom_categorie not in results:
+            results[nom_categorie] = 0
+        for choix in all_responses[reponse]:
+            results[nom_categorie] += int(get_valeur(choix)[0])
+
+    return json.dumps(results)
 
 def get_category_avg_carbon_footprint(request):
     """
@@ -239,6 +264,34 @@ def get_category_avg_carbon_footprint(request):
                 INNER JOIN public.greenimpact_option o ON t.id_typage = o.id_typ
                 WHERE c.nom_categorie = %s
                 GROUP BY t.nom_typage;
+            ''', [category[0]])
+            typage_avg_empreinte_carbonne = cursor.fetchall()
+            category_data[category[0]] = typage_avg_empreinte_carbonne
+    return JsonResponse(category_data)
+
+def get_avg_carbon_footprint(request):
+    """
+    Retrieve average carbon footprints for each category from the database.
+    
+    Parameters:
+    request (HttpRequest): The HTTP request object.
+    
+    Returns:
+    JsonResponse: A JSON response containing category names 
+                  as keys and average carbon footprints as values.
+    """
+    category_data = {}
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT nom_categorie FROM greenimpact_categorie')
+        categories = cursor.fetchall()
+        for category in categories:
+            cursor.execute('''
+            SELECT c.nom_categorie, AVG(o.empreinte_carbonne)
+            FROM public.greenimpact_categorie c
+            INNER JOIN public.greenimpact_typage t ON c.id_categorie = t.id_categ
+            INNER JOIN public.greenimpact_option o ON t.id_typage = o.id_typ
+            WHERE c.nom_categorie = %s
+            GROUP BY c.nom_categorie;
             ''', [category[0]])
             typage_avg_empreinte_carbonne = cursor.fetchall()
             category_data[category[0]] = typage_avg_empreinte_carbonne

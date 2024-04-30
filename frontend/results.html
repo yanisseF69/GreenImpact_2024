@@ -54,14 +54,15 @@
           <!-- Chart 1 -->
           <div class="col-md-5">
             <h2>Votre empreinte carbone</h2>
-            <canvas id="myChart1"></canvas>
+            <canvas id="myResultChart" ></canvas>
+            {{ result_data | safe }}
           </div>
           <!-- Gap column -->
           <div class="col-md-2"></div>
           <!-- Chart 2 -->
           <div class="col-md-5">
             <h2>Statistiques globales</h2>
-            <canvas id="myChart2"></canvas>
+            <canvas id="myGlobalResultChart"></canvas>
           </div>
         </div>
 
@@ -101,8 +102,8 @@
           <div class="col-lg-12">
             <div class="text-center">
               <!-- Save Button -->
-              <button type="button" class="btn btn-outline-success mb-3 mt-3">
-                Enregistrer <i class='bx bx-save'></i>
+              <button type="button" class="btn btn-outline-success mb-3 mt-3" id="saveButtonContainer">
+                Imprimer <i class='bx bx-print'></i>
               </button>
             </div>
 

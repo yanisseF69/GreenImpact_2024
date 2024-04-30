@@ -9,4 +9,5 @@ urlpatterns = [
     path('result/', views.result, name='result'),
     path('get_category_avg_carbon_footprint/',
          views.get_category_avg_carbon_footprint, name='get_category_avg_carbon_footprint'),
-    ]
+    path('get_avg_carbon_footprint/', views.get_avg_carbon_footprint, name='get_avg_carbon_footprint'),
+]
