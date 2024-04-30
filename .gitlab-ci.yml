@@ -96,7 +96,7 @@ coverage:
     - coverage xml -o ../covrage_report/coverage.xml 
   artifacts:
     paths:
-      - coverage_report/coverage.xml 
+      - ../coverage_report/coverage.xml 
   only:
     - main
     - develop
